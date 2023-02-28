@@ -55,20 +55,20 @@ export default function Navbar({ fixed }) {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200  active:text-light-green hover:text-light-green"
-                  href="#pablo"
+                  to="/"
                 >
                   <span className="ml-9">Home</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200 active:text-light-green hover:text-light-green"
-                  href="#pablo"
+                  to="/brands"
                 >
                   <span className="ml-9">Brands</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a

@@ -55,7 +55,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="relative mt-24">
+      <div className="relative mt-24 reveal">
         <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
           <div className="z-20 w-12 h-12 bg-gray-800 rounded-full flex justify-center items-center">
             <svg
@@ -176,7 +176,7 @@ export default function About() {
         </div>
         <hr className="z-10 absolute top-2/4 w-full bg-gray-200" />
       </div>
-      <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
+      <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4 reveal">
         <div>
           <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
             Founded
@@ -261,7 +261,7 @@ export default function About() {
       </div>
 
       <div className="flex lg:flex-row flex-col md:gap-14 gap-16 justify-between lg:mt-20 mt-16">
-        <div className="w-full lg:w-6/12">
+        <div className="w-full lg:w-6/12 reveal">
           <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800">
             Our Mission
           </h2>
@@ -285,7 +285,7 @@ export default function About() {
           </p>
         </div>
         <div className="w-full lg:w-6/12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12 gap-10 reveal">
             {/* <!-- Team Card --> */}
             <div className="flex p-4 shadow-md">
               <div className="mr-6">
