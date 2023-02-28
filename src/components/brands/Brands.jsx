@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../partials/Navbar";
-import BrandCard from "./ReviewCard";
-
+import BrandCard from "./BrandCard";
 
 export default function Brands() {
   return (
