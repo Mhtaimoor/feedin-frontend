@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Brands from "./components/brands/Brands";
+import ReviewForm from "./components/reviewPage/ReviewForm";
+import Policy from "./components/policy/Policy";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/brands" element={<Brands />}></Route>
+        <Route path="/writeReview" element={<ReviewForm />}></Route>
+        <Route path="/privacyPolicy" element={<Policy />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -73,7 +73,7 @@ export default function Navbar({ fixed }) {
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-sm font-semibold leading-snug text-white hover:text-orange-500 transition duration-200 active:text-light-green hover:text-light-green"
-                  href="#pablo"
+                  href="/writeReview"
                 >
                   <span className="ml-9 mr-5">Write a Review</span>
                 </a>

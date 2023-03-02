@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -18,7 +19,7 @@ export default function Footer() {
             <ul className="text-gray-400 ">
               <li className="mb-4">
                 <a
-                  href="#"
+                  href="https://flowbite.com/"
                   className="hover:text-orange-500 transition duration-200"
                 >
                   Flowbite
@@ -26,7 +27,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://tailwindcss.com/"
                   className="hover:text-orange-500 transition duration-200"
                 >
                   Tailwind CSS
@@ -41,7 +42,7 @@ export default function Footer() {
             <ul className="text-gray-400">
               <li className="mb-4">
                 <a
-                  href="#"
+                  href="https://github.com/Mhtaimoor"
                   className="hover:text-orange-500 transition duration-200"
                 >
                   Github
@@ -49,10 +50,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.youtube.com/channel/UCoJeJsYpqAp_Pu2pqLqqzuw"
                   className="hover:text-orange-500 transition duration-200"
                 >
-                  Discord
+                  Youtube
                 </a>
               </li>
             </ul>
@@ -63,16 +64,16 @@ export default function Footer() {
             </h2>
             <ul className="text-gray-400">
               <li className="mb-4">
-                <a
-                  href="#"
+                <Link
+                  to="/privacyPolicy"
                   className="hover:text-orange-500 transition duration-200"
                 >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/privacyPolicy"
                   className="hover:text-orange-500 transition duration-200"
                 >
                   Terms &amp; Conditions
@@ -92,7 +93,10 @@ export default function Footer() {
           . All Rights Reserved.
         </span>
         <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 pb-8">
-          <a href="#" className="text-gray-500 hover:text-blue-800">
+          <a
+            href="https://www.facebook.com/hasnat0007"
+            className="text-gray-500 hover:text-blue-800"
+          >
             <svg
               className="w-5 h-5"
               fill="currentColor"
@@ -107,7 +111,10 @@ export default function Footer() {
             </svg>
             <span className="sr-only">Facebook page</span>
           </a>
-          <a href="#" className="text-gray-500 hover:text-red-800">
+          <a
+            href="https://www.instagram.com/mh.taimoor/"
+            className="text-gray-500 hover:text-red-800"
+          >
             <svg
               className="w-5 h-5"
               fill="currentColor"
@@ -122,7 +129,10 @@ export default function Footer() {
             </svg>
             <span className="sr-only">Instagram page</span>
           </a>
-          <a href="#" className="text-gray-500 hover:text-blue-900">
+          <a
+            href="https://twitter.com/Hasnats_Vision"
+            className="text-gray-500 hover:text-blue-900"
+          >
             <svg
               className="w-5 h-5"
               fill="currentColor"
@@ -133,7 +143,10 @@ export default function Footer() {
             </svg>
             <span className="sr-only">Twitter page</span>
           </a>
-          <a href="#" className="text-gray-500 hover:text-white">
+          <a
+            href="https://github.com/Mhtaimoor"
+            className="text-gray-500 hover:text-white"
+          >
             <svg
               className="w-5 h-5"
               fill="currentColor"
