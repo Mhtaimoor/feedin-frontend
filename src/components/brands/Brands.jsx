@@ -7,11 +7,9 @@ import ReactPaginate from "react-paginate";
 export default function Brands() {
   return (
     <>
-      <div className="navbar">
+      <div className=" bg-gradient-to-r from-gray-500 via-gray-900 to-gray-700">
         <Navbar />
-      </div>
-      <div className=" bg-gradient-to-r from-gray-500 via-gray-900 to-gray-700 py-10">
-        <h1 className="text-white text-center text-3xl font-semibold">
+        <h1 className="text-white text-center text-3xl font-semibold pt-10">
           Enter Your Location
         </h1>
         <div className="px-40 py-10">

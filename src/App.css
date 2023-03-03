@@ -114,14 +114,6 @@
   }
 }
 
-.shine {
-  -webkit-box-reflect: below -15px linear-gradient(transparent, #211e1e2e);
-}
-
-.shineWhite {
-  -webkit-box-reflect: below -30px linear-gradient(transparent, #3f3e3e2e);
-}
-
 .reviewShadow {
   box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
     rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;

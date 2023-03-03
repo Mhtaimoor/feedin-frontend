@@ -8,7 +8,7 @@ export default function Navbar({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-10 py-2 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 mb-0">
+      <nav className="relative flex flex-wrap items-center justify-between px-10 py-2 fixed mb-0">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <a
