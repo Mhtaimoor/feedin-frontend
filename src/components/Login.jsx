@@ -1,9 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import userService from "../../src/services/UserService";
 import AuthText from "./partials/AuthText";
+import { failure, loginSuccess } from "../../src/utils/notification";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ email, password });
+    userService
+      .login({ email, password })
+      .then((res) => {
+        loginSuccess();
+        navigate("/user");
+      })
+      .catch((err) => failure(err.response.data.message));
+  };
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -23,7 +47,11 @@ export default function Login() {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
                   Sign in to your account
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="#">
+                <form
+                  className="space-y-4 md:space-y-6"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                >
                   <div>
                     <label
                       for="email"
@@ -35,9 +63,11 @@ export default function Login() {
                       type="email"
                       name="email"
                       id="email"
+                      value={email}
+                      onChange={handleEmailChange}
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                       placeholder="name@company.com"
-                      required=""
+                      required
                     />
                   </div>
                   <div>
@@ -51,9 +81,11 @@ export default function Login() {
                       type="password"
                       name="password"
                       id="password"
+                      value={password}
+                      onChange={handlePasswordChange}
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
-                      required=""
+                      required
                     />
                   </div>
                   <div className="flex items-center justify-between">

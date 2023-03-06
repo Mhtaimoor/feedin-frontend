@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Brands from "./components/brands/Brands";
 import ReviewForm from "./components/reviewPage/ReviewForm";
 import Policy from "./components/policy/Policy";
+import LogHome from "./components/logged/LogHome";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/brands" element={<Brands />}></Route>
         <Route path="/writeReview" element={<ReviewForm />}></Route>
         <Route path="/privacyPolicy" element={<Policy />}></Route>
+        <Route path="/loggedIn" element={<LogHome />}></Route>
       </Routes>
     </BrowserRouter>
   );

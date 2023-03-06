@@ -1,9 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import AuthText from "./partials/AuthText";
+import userService from "../../src/services/UserService";
+import { failure, signupSuccess } from "../../src/utils/notification";
 
 export default function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ name, email, password });
+    userService
+      .signup({ name, email, password })
+      .then((res) => {
+        signupSuccess();
+        navigate("/user");
+      })
+      .catch((err) => failure(err.response.data.message));
+  };
   return (
     <>
       <div className="grid grid-cols-3 gap-0">
@@ -23,7 +51,11 @@ export default function Signup() {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
                   Create New account
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="#">
+                <form
+                  className="space-y-4 md:space-y-6"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                >
                   <div>
                     <label
                       for="email"
@@ -35,9 +67,11 @@ export default function Signup() {
                       type="text"
                       name="name"
                       id="name"
+                      value={name}
+                      onChange={handleNameChange}
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                       placeholder="e.g John Doe"
-                      required=""
+                      required
                     />
                   </div>
                   <div>
@@ -51,9 +85,11 @@ export default function Signup() {
                       type="email"
                       name="email"
                       id="email"
+                      value={email}
+                      onChange={handleEmailChange}
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                       placeholder="name@company.com"
-                      required=""
+                      required
                     />
                   </div>
                   <div>
@@ -67,9 +103,11 @@ export default function Signup() {
                       type="password"
                       name="password"
                       id="password"
+                      value={password}
+                      onChange={handlePasswordChange}
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
-                      required=""
+                      required
                     />
                   </div>
                   <div>
@@ -85,7 +123,7 @@ export default function Signup() {
                       id="password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
-                      required=""
+                      required
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -96,7 +134,6 @@ export default function Signup() {
                           aria-describedby="remember"
                           type="checkbox"
                           className="w-4 h-4 border border-gray-600 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 "
-                          required=""
                         />
                       </div>
                       <div className="ml-3 text-sm">

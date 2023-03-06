@@ -9,7 +9,6 @@ import Navbar from "./partials/Navbar";
 export default function Home() {
   return (
     <div className="home">
-      
       <div className="bg-gradient-to-r from-gray-500 via-gray-900 to-gray-700">
         <Navbar />
         <Carousel />

@@ -1,12 +1,12 @@
 import React from "react";
 import Footer from "../partials/Footer";
-import Navbar from "../partials/Navbar";
+import LogNavbar from "../logged/LogNavbar";
 
 export default function ReviewForm() {
   return (
     <>
       <div className=" bg-gradient-to-r from-gray-500 via-gray-900 to-gray-700 reviewShadow">
-        <Navbar />
+        <LogNavbar />
         <div className="py-20">
           {/* <!-- component --> */}
           <section class="max-w-4xl p-6 mx-auto bg-gradient-to-tl from-gray-700 via-gray-900 to-black rounded-md shadow-md dark:bg-gray-800">

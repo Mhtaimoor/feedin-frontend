@@ -1,22 +1,23 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import slide1 from "../../assets/slider1.jpg";
 
 export default function Navbar({ fixed }) {
   const location = useLocation();
-  // console.log(location);
+  console.log(location);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-10 py-2 fixed mb-0">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link
-              className="leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-black hover:w-50"
-              to="/"
+            <a
+              className="leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-black "
+              href="#pablo"
             >
               <img src={logo} alt="logo" class="h-12" />
-            </Link>
+            </a>
             <button
               className="text-black cursor-pointer text-3xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -46,7 +47,6 @@ export default function Navbar({ fixed }) {
               </div>
             </div>
           </div>
-
           <div
             className={
               "lg:flex flex-grow items-center" +
@@ -57,27 +57,32 @@ export default function Navbar({ fixed }) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200  "
-                  to="/"
+                  className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200  active:text-light-green hover:text-light-green"
+                  to="/loggedIn"
                 >
                   <span className="ml-9">Home</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200 "
-                  to="/brands"
-                >
-                  <span className="ml-9 mr-12">Brands</span>
-                </Link>
-              </li>
 
-              <li>
-                <Link to="/login">
-                  <button className="hover:bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] hover:from-gray-900 hover:via-gray-300 hover:to-gray-900 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 py-2 px-4 text-sm font-semibold rounded-md">
-                    Login
-                  </button>
-                </Link>
+              <li className="nav-item">
+                <a
+                  className="px-3 py-3 flex items-center text-sm font-semibold leading-snug text-white hover:text-orange-500 transition duration-200 active:text-light-green hover:text-light-green"
+                  href="/writeReview"
+                >
+                  <span className="ml-9 mr-9">Write a Review</span>
+                </a>
+              </li>
+              <li className=" rounded-lg border border-solid border-white pr-5">
+                <div className="relative w-12 h-12 flex mr-16 p-2">
+                  <img
+                    className="rounded-full shadow-sm w-8 h-8"
+                    src={slide1}
+                    alt="user image"
+                  />
+                  <h3 className="text-white font-semibold px-2 py-1">
+                    Taimoor
+                  </h3>
+                </div>
               </li>
             </ul>
           </div>
