@@ -11,7 +11,7 @@ export default function Policy() {
           </h1>
         </div>
         <div className="px-20 pb-10">
-          <div class=" text-white bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-500 via-yellow-600 to-red-800 border-2 rounded-lg mt-5 overflow-hidden p-2">
+          <div class=" text-black font-serif font-light bg-gray-300 border-2 rounded-lg mt-5 overflow-hidden p-2">
             <div class=" scrollbar-thin h-96 scrollbar-track-grey-300 overflow-y-scroll scrollbar-thumb-grey-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
               <div class="p-5 text-lg text-center">
                 <p>
@@ -82,7 +82,7 @@ export default function Policy() {
         </div>
         <div class="p-2 justify-center flex pb-16">
           <Link to="/">
-            <button class="hover:bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] hover:from-gray-900 hover:via-gray-300 hover:to-gray-900 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900  py-2 px-10 sm:px-32 hover:shadow-lg text-lg rounded-md text-black font-semibold">
+            <button class="bg-white hover:bg-gray-300  py-2 px-10 sm:px-32 hover:shadow-lg text-lg rounded-md text-black font-semibold">
               I agree
             </button>
           </Link>

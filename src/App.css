@@ -81,11 +81,11 @@
 }
 
 .sliders {
-  height: 35em;
+  height: 38em;
 }
 #image {
-  width: 60em;
-  height: 35em;
+  width: 100em;
+  height: 40em;
 }
 
 @keyframes shinetext {
@@ -136,4 +136,8 @@
 .reveal.active {
   transform: translateY(0);
   opacity: 1;
+}
+
+.imageCover {
+  height: 13em;
 }

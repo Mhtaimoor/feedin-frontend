@@ -16,10 +16,10 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/brands" element={<Brands />}></Route>
-        <Route path="/writeReview" element={<ReviewForm />}></Route>
         <Route path="/privacyPolicy" element={<Policy />}></Route>
-        <Route path="/loggedIn" element={<LogHome />}></Route>
+        <Route path="/user" element={<LogHome />}></Route>
+        <Route path="/user/brands" element={<Brands />}></Route>
+        <Route path="/user/writeReview" element={<ReviewForm />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -20,7 +20,7 @@ export default function Footer() {
               <li className="mb-4">
                 <a
                   href="https://flowbite.com/"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Flowbite
                 </a>
@@ -28,7 +28,7 @@ export default function Footer() {
               <li>
                 <a
                   href="https://tailwindcss.com/"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Tailwind CSS
                 </a>
@@ -43,7 +43,7 @@ export default function Footer() {
               <li className="mb-4">
                 <a
                   href="https://github.com/Mhtaimoor"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Github
                 </a>
@@ -51,7 +51,7 @@ export default function Footer() {
               <li>
                 <a
                   href="https://www.youtube.com/channel/UCoJeJsYpqAp_Pu2pqLqqzuw"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Youtube
                 </a>
@@ -66,7 +66,7 @@ export default function Footer() {
               <li className="mb-4">
                 <Link
                   to="/privacyPolicy"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Privacy Policy
                 </Link>
@@ -74,7 +74,7 @@ export default function Footer() {
               <li>
                 <a
                   href="/privacyPolicy"
-                  className="hover:text-orange-500 transition duration-200"
+                  className="hover:text-zinc-900 transition duration-200"
                 >
                   Terms &amp; Conditions
                 </a>
@@ -113,7 +113,7 @@ export default function Footer() {
           </a>
           <a
             href="https://www.instagram.com/mh.taimoor/"
-            className="text-gray-500 hover:text-red-800"
+            className="text-gray-500 hover:text-red-700"
           >
             <svg
               className="w-5 h-5"

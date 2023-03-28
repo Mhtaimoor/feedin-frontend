@@ -5,14 +5,18 @@ import AuthText from "./partials/AuthText";
 import userService from "../../src/services/UserService";
 import { failure, signupSuccess } from "../../src/utils/notification";
 
-export default function Signup() {
+export default function Signup(props) {
   const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const handleNameChange = (e) => {
     setName(e.target.value);
+  };
+  const handleUsername = (e) => {
+    setUserName(e.target.value);
   };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -23,9 +27,9 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ name, email, password });
+    console.log({ name, username, email, password });
     userService
-      .signup({ name, email, password })
+      .signup({ name, username, email, password })
       .then((res) => {
         signupSuccess();
         navigate("/user");
@@ -39,7 +43,7 @@ export default function Signup() {
           <AuthText />
         </div>
         <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black py-12">
-          <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto md:h-screen lg:py-0">
+          <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto md:h-full lg:py-0">
             <Link
               to="/"
               className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -69,6 +73,24 @@ export default function Signup() {
                       id="name"
                       value={name}
                       onChange={handleNameChange}
+                      className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
+                      placeholder="e.g John Doe"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="email"
+                      className="block mb-2 text-sm font-medium text-gray-900 "
+                    >
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={username}
+                      onChange={handleUsername}
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                       placeholder="e.g John Doe"
                       required

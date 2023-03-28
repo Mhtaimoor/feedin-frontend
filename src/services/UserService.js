@@ -5,9 +5,9 @@ class UserService extends GenericService {
     super();
   }
 
-  signup = ({ name, email, password, role }) =>
+  signup = ({ name, username, email, password }) =>
     new Promise((resolve, reject) => {
-      this.post("users/register", { name, email, password, role })
+      this.post("users/register", { name, username, email, password })
         .then((data) => {
           resolve(data);
         })
@@ -16,10 +16,10 @@ class UserService extends GenericService {
         });
     });
 
-  login = ({ email, password }) =>
+  login = ({ username, password }) =>
     new Promise((resolve, reject) => {
-      console.log({ email, password });
-      this.post("users/login", { email, password })
+      console.log({ username, password });
+      this.post("users/login", { username, password })
         .then((data) => {
           console.log(data);
           localStorage.setItem("FeedInnUserToken", data.token);
@@ -35,16 +35,15 @@ class UserService extends GenericService {
     localStorage.removeItem("token");
   };
 
-  getVeterinarians = () =>
-    new Promise((resolve, reject) => {
-      this.get("/users/veterinarians")
-        .then((data) => {
-          resolve(data);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+  getCurrentUser = () => {
+    try {
+      const token = localStorage.getItem("FeedInnUserToken");
+      const user = jwtDecode(token);
+      return user;
+    } catch (ex) {
+      return null;
+    }
+  };
 
   getUsers = () =>
     new Promise((resolve, reject) => {
@@ -110,15 +109,6 @@ class UserService extends GenericService {
           reject(err);
         });
     });
-
-  getLoggedInUser = () => {
-    try {
-      const jwt = localStorage.getItem("token");
-      return jwtDecode(jwt);
-    } catch (ex) {
-      return null;
-    }
-  };
 
   isLoggedIn = () => {
     return localStorage.getItem("token") ? true : false;

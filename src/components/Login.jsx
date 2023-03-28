@@ -5,13 +5,13 @@ import userService from "../../src/services/UserService";
 import AuthText from "./partials/AuthText";
 import { failure, loginSuccess } from "../../src/utils/notification";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
+export default function Login(props) {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -19,9 +19,9 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password });
+    console.log({ username, password });
     userService
-      .login({ email, password })
+      .login({ username, password })
       .then((res) => {
         loginSuccess();
         navigate("/user");
@@ -54,17 +54,16 @@ export default function Login() {
                 >
                   <div>
                     <label
-                      for="email"
+                      for="username"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
-                      Your email
+                      Your Username
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={handleEmailChange}
+                      type="text"
+                      name="username"
+                      value={username}
+                      onChange={handleUsername}
                       className="bg-gray-50 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                       placeholder="name@company.com"
                       required

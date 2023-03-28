@@ -8,43 +8,22 @@ export default function Navbar({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-10 py-2 fixed mb-0">
+      <nav className="relative flex flex-wrap items-center justify-between px-10 py-2 mb-0 bg-zinc-900">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
-              className="leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-black hover:w-50"
+              className="leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white hover:w-50"
               to="/"
             >
-              <img src={logo} alt="logo" class="h-12" />
+              <img src={logo} alt="logo" className="h-12" />
             </Link>
             <button
-              className="text-black cursor-pointer text-3xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="text-white cursor-pointer text-3xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <i className="fa fa-bars"></i>
             </button>
-          </div>
-          <div class="flex justify-center sm:px-2 lg:px-44">
-            <div class="xl:w-96">
-              <div class="relative flex w-full flex-wrap items-stretch">
-                <input
-                  type="search"
-                  class="relative m-0 -mr-px block w-[1%] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="button-addon3"
-                />
-                <button
-                  class="relative z-[2] rounded-r border-2 border-primary px-6 py-2 text-sm font-semibold uppercase text-primary transition duration-150 ease-in-out hover:bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] hover:from-gray-900 hover:via-gray-300 hover:to-gray-900 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900"
-                  type="button"
-                  id="button-addon3"
-                  data-te-ripple-init
-                >
-                  Search
-                </button>
-              </div>
-            </div>
           </div>
 
           <div
@@ -57,7 +36,7 @@ export default function Navbar({ fixed }) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200  "
+                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200  "
                   to="/"
                 >
                   <span className="ml-9">Home</span>
@@ -65,16 +44,16 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-orange-500 transition duration-200 "
-                  to="/brands"
+                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200 "
+                  to="/privacyPolicy"
                 >
-                  <span className="ml-9 mr-12">Brands</span>
+                  <span className="ml-9 mr-12">Privacy Policy</span>
                 </Link>
               </li>
 
               <li>
                 <Link to="/login">
-                  <button className="hover:bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] hover:from-gray-900 hover:via-gray-300 hover:to-gray-900 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 py-2 px-4 text-sm font-semibold rounded-md">
+                  <button className="bg-white py-2 px-4 text-sm font-semibold rounded-md hover:bg-gray-300">
                     Login
                   </button>
                 </Link>
