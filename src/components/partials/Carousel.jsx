@@ -8,7 +8,7 @@ import { Carousel } from "react-responsive-carousel";
 
 export default function Carousal() {
   return (
-    <div className="sliders overflow-hidden">
+    <div className="sliders overflow-hidden hidden md:block">
       <Carousel autoPlay infiniteLoop>
         <div>
           <img src={slide1} id="image" />

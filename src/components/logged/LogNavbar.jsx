@@ -61,7 +61,7 @@ export default function Navbar(props) {
               <li className="nav-item">
                 <Link
                   className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200  active:text-gray-800 "
-                  to="/user/home"
+                  to="/user/"
                 >
                   <span className="ml-9">Home</span>
                 </Link>
