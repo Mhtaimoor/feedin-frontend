@@ -8,18 +8,26 @@ import { Carousel } from "react-responsive-carousel";
 
 export default function Carousal() {
   return (
-    <div className="sliders overflow-hidden hidden md:block">
-      <Carousel autoPlay infiniteLoop>
-        <div>
-          <img src={slide1} id="image" />
-        </div>
-        <div>
-          <img src={slide2} id="image" />
-        </div>
-        <div>
-          <img src={slide3} id="image" />
-        </div>
-      </Carousel>
+    <div className="px-16 grid grid-col-1 md:grid-cols-2 gap-4 bg-zinc-800 rounded-bl-full">
+      <div className="p-12 py-22">
+        <h1 className="py-5 text-4xl text-white font-bold">
+          Make Your Favorites{" "}
+        </h1>
+        <h2 className=" text-4xl text-purple-700 font-bold">Your Beloved!</h2>
+      </div>
+      <div className="sliders py-8 overflow-hidden ">
+        <Carousel autoPlay infiniteLoop>
+          <div>
+            <img src={slide1} id="image" />
+          </div>
+          <div>
+            <img src={slide2} id="image" />
+          </div>
+          <div>
+            <img src={slide3} id="image" />
+          </div>
+        </Carousel>
+      </div>
     </div>
   );
 }

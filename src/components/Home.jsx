@@ -14,10 +14,10 @@ export default function Home() {
 
         <Carousel />
       </div>
-      <div className="bg-gray-200">
+      <div className="">
         <Brands />
       </div>
-      <div className="bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r">
+      <div className="bg-zinc-800">
         <Cards />
         <Footer />
       </div>

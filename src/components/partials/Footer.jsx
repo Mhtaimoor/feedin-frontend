@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="px-16 pt-16 from-gray-600 to-gray-900 bg-gradient-to-b">
+    <footer className="px-16 pt-16 bg-zinc-800">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
           <a href="/" className="flex items-center">

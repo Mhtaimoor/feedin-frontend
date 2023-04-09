@@ -2,6 +2,12 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
 .navbarColor {
   background: rgb(2, 0, 36);
   background: linear-gradient(
@@ -82,14 +88,6 @@
   background-size: 80%;
   animation: shine 7s linear infinite;
   position: relative;
-}
-
-.sliders {
-  height: 38em;
-}
-#image {
-  width: 100em;
-  height: 40em;
 }
 
 @keyframes shinetext {

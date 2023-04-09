@@ -21,10 +21,8 @@ export default function About() {
   reveal();
   return (
     <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
-      <h1 className="text-4xl text-center font-bold font-sans mb-16 shine">
-        About Us
-      </h1>
-      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12 reveal">
+      <h1 className="text-4xl text-center font-bold mb-16">About Us</h1>
+      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12">
         <div className="w-full lg:w-6/12">
           <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">
             We are here to give you better way of experience the best thing
@@ -195,7 +193,7 @@ export default function About() {
             the readable content of a page when looking at its layout.
           </p>
         </div>
-        <div className="sm:block hidden">
+        <div className="sm:block hidden reveal">
           <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
             400k User
           </p>
