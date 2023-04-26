@@ -1,10 +1,10 @@
-import { React, useState } from "react";
+import { React } from "react";
 import restaurant from "../../assets/restaurant.png";
 import { Link } from "react-router-dom";
 
 export default function BrandCard({ brand }) {
   // console.log({ brand });
-  const rating = 3.5;
+
   return (
     <>
       <div className="BrandCard px-10 lg:px-20 mt-3">

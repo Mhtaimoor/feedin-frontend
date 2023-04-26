@@ -2,7 +2,7 @@ import React from "react";
 import slide1 from "../../assets/slider1.jpg";
 import slide2 from "../../assets/slider2.jpg";
 import slide3 from "../../assets/slider3.jpg";
-import ReactDOM from "react-dom";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
@@ -58,13 +58,13 @@ export default function Carousal() {
       <div className="sliders py-8 overflow-hidden ">
         <Carousel autoPlay infiniteLoop>
           <div>
-            <img src={slide1} id="image" />
+            <img src={slide1} id="image" alt="" />
           </div>
           <div>
-            <img src={slide2} id="image" />
+            <img src={slide2} id="image" alt="" />
           </div>
           <div>
-            <img src={slide3} id="image" />
+            <img src={slide3} id="image" alt="" />
           </div>
         </Carousel>
       </div>

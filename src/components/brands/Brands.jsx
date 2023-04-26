@@ -1,11 +1,9 @@
 import { React, useEffect, useState } from "react";
 import LogNavbar from "../logged/LogNavbar";
-import BrandCard from "../brands/BrandCard";
+
 import Footer from "../partials/Footer";
-import ReactPaginate from "react-paginate";
+
 import brandsService from "../../services/BrandService";
-import userService from "../../services/UserService";
-import Select from "react-select";
 
 import "../../react-paginate.css";
 import Filter from "./Filters";

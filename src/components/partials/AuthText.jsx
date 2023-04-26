@@ -1,10 +1,10 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function AuthText() {
   const location = useLocation();
 
-  if (location.pathname == "/login") {
+  if (location.pathname === "/login") {
     return (
       <>
         <div className="textDiv">

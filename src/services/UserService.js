@@ -1,10 +1,6 @@
 import GenericService from "./GenericService";
 import jwtDecode from "jwt-decode";
 class UserService extends GenericService {
-  constructor() {
-    super();
-  }
-
   signup = ({ name, username, email, password }) =>
     new Promise((resolve, reject) => {
       this.post("users/register", { name, username, email, password })

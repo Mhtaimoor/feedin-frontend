@@ -6,7 +6,7 @@ axios.defaults.headers.common["authorization"] =
 axios.defaults.baseURL = Base_URL;
 // axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 class GenericService {
-  constructor() {}
+  
   get = (url) =>
     new Promise((resolve, reject) => {
       axios
