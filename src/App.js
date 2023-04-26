@@ -5,9 +5,11 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Brands from "./components/brands/Brands";
+import SingleBrand from "./components/brands/SingleBrand";
 import ReviewForm from "./components/reviewPage/ReviewForm";
 import Policy from "./components/policy/Policy";
 import LogHome from "./components/logged/LogHome";
+import Settings from "./components/settings/Settings";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/user" element={<LogHome />}></Route>
         <Route path="/user/brands" element={<Brands />}></Route>
         <Route path="/user/writeReview" element={<ReviewForm />}></Route>
+        <Route path="/user/settings" element={<Settings />}></Route>
+        <Route path="/user/brands/:id" element={<SingleBrand />} />
       </Routes>
     </BrowserRouter>
   );

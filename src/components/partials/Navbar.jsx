@@ -1,11 +1,29 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import userService from "../../services/UserService";
 
 export default function Navbar({ fixed }) {
+  const navigate = useNavigate();
   const location = useLocation();
   // console.log(location);
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
+
+  const [id, setId] = useState();
+  const [user, setUser] = useState();
+  const handleLogin = (e) => {
+    if (id) {
+      navigate("/user");
+    } else navigate("/login");
+  };
+  useEffect(() => {
+    // get logged in user
+    const user = userService.getCurrentUser();
+    // console.log(user);
+    if (user) {
+      setId(user.id);
+    }
+  }, []);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-12 py-3 pt-4 mb-0 bg-zinc-800">
@@ -36,7 +54,7 @@ export default function Navbar({ fixed }) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200  "
+                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-purple-700 transition duration-200  "
                   to="/"
                 >
                   <span className="ml-9">Home</span>
@@ -44,7 +62,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200 "
+                  className="px-3 py-2 flex items-center text-sm font-semibold  leading-snug text-white hover:text-purple-700 transition duration-200 "
                   to="/privacyPolicy"
                 >
                   <span className="ml-9 mr-12">Privacy Policy</span>
@@ -52,11 +70,12 @@ export default function Navbar({ fixed }) {
               </li>
 
               <li>
-                <Link to="/login">
-                  <button className="bg-white py-2 px-4 text-sm font-semibold rounded-md hover:bg-gray-300">
-                    Login
-                  </button>
-                </Link>
+                <button
+                  className="bg-white py-2 px-4 text-sm font-semibold rounded-md hover:bg-gray-300"
+                  onClick={handleLogin}
+                >
+                  Login
+                </button>
               </li>
             </ul>
           </div>

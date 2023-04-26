@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 export default function Policy() {
   return (
     <>
-      <div className="col-span-2 bg-gradient-to-l from-blue-700 via-blue-800 to-gray-900">
+      <div className="col-span-2 bg-zinc-800">
         <div className="heading text-center">
           <h1 className="heading1 font-medium text-6xl py-10">
             Privacy Policy
           </h1>
         </div>
         <div className="px-20 pb-10">
-          <div class=" text-black font-serif font-light bg-gray-300 border-2 rounded-lg mt-5 overflow-hidden p-2">
+          <div class=" text-black font-serif font-light bg-gray-100 border-2 rounded-lg mt-5 overflow-hidden p-2">
             <div class=" scrollbar-thin h-96 scrollbar-track-grey-300 overflow-y-scroll scrollbar-thumb-grey-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
               <div class="p-5 text-lg text-center">
                 <p>

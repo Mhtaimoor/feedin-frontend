@@ -10,6 +10,7 @@ class UserService extends GenericService {
       this.post("users/register", { name, username, email, password })
         .then((data) => {
           resolve(data);
+          localStorage.setItem("FeedInnUserToken", data.token);
         })
         .catch((err) => {
           reject(err);
@@ -18,7 +19,7 @@ class UserService extends GenericService {
 
   login = ({ username, password }) =>
     new Promise((resolve, reject) => {
-      console.log({ username, password });
+      // console.log({ username, password });
       this.post("users/login", { username, password })
         .then((data) => {
           console.log(data);
@@ -28,6 +29,20 @@ class UserService extends GenericService {
         .catch((err) => {
           console.log("Error");
           reject(err);
+        });
+    });
+
+  getProfile = (id) =>
+    new Promise((resolve, reject) => {
+      // console.log(id);
+      this.get("users/profile" + id)
+        .then((data) => {
+          console.log(data);
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+          console.log("error");
         });
     });
 
@@ -47,7 +62,7 @@ class UserService extends GenericService {
 
   getUsers = () =>
     new Promise((resolve, reject) => {
-      this.get("/api/users")
+      this.get("/users")
         .then((data) => {
           resolve(data);
         })
@@ -91,17 +106,6 @@ class UserService extends GenericService {
   resetPassword = ({ newPassword, resetPasswordLink }) =>
     new Promise((resolve, reject) => {
       this.put("/users/reset", { newPassword, resetPasswordLink })
-        .then((data) => {
-          resolve(data);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-
-  getProfile = () =>
-    new Promise((resolve, reject) => {
-      this.get("/api/users/profile")
         .then((data) => {
           resolve(data);
         })

@@ -193,7 +193,7 @@ export default function About() {
             the readable content of a page when looking at its layout.
           </p>
         </div>
-        <div className="sm:block hidden reveal">
+        <div className="sm:block hidden">
           <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
             400k User
           </p>

@@ -3,13 +3,13 @@ import restaurant from "../../assets/restaurant.png";
 import { Link } from "react-router-dom";
 
 export default function BrandCard({ brand }) {
-  console.log({ brand });
+  // console.log({ brand });
   const rating = 3.5;
   return (
     <>
       <div className="BrandCard px-10 lg:px-20 mt-3">
         <Link
-          to={"/users/brands/" + brand["name"]}
+          to={"/user/brands/" + brand["name"]}
           target="_blank"
           className="flex flex-col items-center bg-gray-300 border border-gray-400 rounded-lg shadow md:flex-row md:max-w-full hover:bg-gray-200"
         >
@@ -98,10 +98,10 @@ export default function BrandCard({ brand }) {
                 {brand.rating}
               </p>
             </div> */}
-            <div class="flex items-center">
+            <div className="flex items-center">
               <svg
                 aria-hidden="true"
-                class="w-5 h-5 text-yellow-400"
+                className="w-5 h-5 text-yellow-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,12 +109,12 @@ export default function BrandCard({ brand }) {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
               </svg>
 
-              <p class="ml-2 text-sm font-medium text-gray-700">
+              <p className="ml-2 text-sm font-medium text-gray-700">
                 {brand.rating ? brand.rating : "No Rating"}
               </p>
             </div>
-            <div className="text-sm">
-              <span className="font-semibold">Cuisines: </span>
+            <div className="text-sm  mt-2">
+              <span className="font-semibold text-purple-700">Cuisines: </span>
               {brand.cuisines}
             </div>
           </div>

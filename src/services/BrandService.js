@@ -17,9 +17,9 @@ class BrandService extends GenericService {
           reject(err);
         });
     });
-  getSingleBrand = (slug) =>
+  getSingleBrand = (name) =>
     new Promise((resolve, reject) => {
-      this.get("/brands/" + slug)
+      this.get("/brands/" + name)
         .then((data) => {
           resolve(data);
         })

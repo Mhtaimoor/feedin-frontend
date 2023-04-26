@@ -10,8 +10,8 @@ function classNames(...classes) {
 }
 
 const userNavigation = [
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Settings", href: "/user/settings" },
+  { name: "Sign out", href: "/" },
 ];
 
 export default function Navbar(props) {
@@ -26,6 +26,7 @@ export default function Navbar(props) {
   useEffect(() => {
     // get logged in user
     const user = userService.getCurrentUser();
+    // console.log(user);
     if (user) {
       setId(user.id);
       setUsername(user.username);
@@ -62,7 +63,7 @@ export default function Navbar(props) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
                 <Link
-                  className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200  active:text-gray-800 "
+                  className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-purple-500 transition duration-200  active:text-purple-800 "
                   to="/user/"
                 >
                   <span className="ml-9">Dashboard</span>
@@ -70,7 +71,7 @@ export default function Navbar(props) {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-gray-500 transition duration-200 active:text-gray-800 "
+                  className="px-3 py-3 flex items-center text-sm font-semibold  leading-snug text-white hover:text-purple-500 transition duration-200 active:text-purple-800 "
                   to="/user/brands"
                 >
                   <span className="ml-9">Brands</span>
@@ -78,7 +79,7 @@ export default function Navbar(props) {
               </li>
               <li className="nav-item">
                 <a
-                  className="px-3 py-3 flex items-center text-sm font-semibold leading-snug text-white hover:text-gray-500 transition duration-200 active:text-gray-800 "
+                  className="px-3 py-3 flex items-center text-sm font-semibold leading-snug text-white hover:text-purple-500 transition duration-200 active:text-purple-800 "
                   href="/user/writeReview"
                 >
                   <span className="ml-9 ">Write a Review</span>
@@ -112,7 +113,7 @@ export default function Navbar(props) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-xl shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
@@ -120,7 +121,7 @@ export default function Navbar(props) {
                               to={item.href}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-black hover:bg-purple-700 hover:text-white hover:rounded-xl hover:font-medium"
                               )}
                             >
                               {item.name}
