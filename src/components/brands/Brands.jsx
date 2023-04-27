@@ -10,9 +10,9 @@ import Filter from "./Filters";
 
 export default function Brands(props) {
   const [brands, setBrands] = useState([]);
-  const [perPage, setPerPage] = useState(15);
-  const [page, setPage] = useState(1);
-  const [brandName, setBrandName] = useState(null);
+  const [perPage] = useState(15);
+  const [page] = useState(1);
+  const [brandName] = useState(null);
   const [brandNames, setBrandNames] = useState();
   const [transformedBrandNames, setTransformedBrandNames] = useState([]);
   const [cuisines, setCuisines] = useState([]);

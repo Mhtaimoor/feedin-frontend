@@ -1,6 +1,8 @@
 import GenericService from "./GenericService";
 // import jwtDecode from "jwt-decode";
 class BrandService extends GenericService {
+  
+
   getBrands = () =>
     new Promise((resolve, reject) => {
       this.get("/brands/")

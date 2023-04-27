@@ -104,12 +104,12 @@ export default function Login(props) {
                         </label>
                       </div>
                     </div>
-                    <a
-                      href="#"
+                    <Link
+                      to="/"
                       className="text-sm font-medium text-blue-700 hover:underline "
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <button
                     type="submit"
