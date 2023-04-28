@@ -14,10 +14,10 @@ export default function Carousal() {
           Make Your Favorites{" "}
         </h1>
         <h2 className=" text-4xl text-purple-700 font-bold">Your Beloved!</h2>
-        <div className="mt-24">
+        <div className="md:mt-24 mt-20">
           <button
             type="button"
-            class="text-white bg-purple-700 hover:bg-purple-800 mx-3 font-semibold focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
+            class="text-white bg-purple-700 hover:bg-purple-800 md:mx-3 font-semibold focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
           >
             View Brands
             <svg
@@ -36,7 +36,7 @@ export default function Carousal() {
           </button>
           <button
             type="button"
-            class="text-purple-700 bg-white hover:bg-gray-300  focus:ring-4 focus:outline-none focus:ring-purple-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
+            class="text-purple-700 bg-white hover:bg-gray-300 mt-2 md:mt-0 focus:ring-4 focus:outline-none focus:ring-purple-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
           >
             Write a Review
             <svg
