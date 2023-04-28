@@ -12,7 +12,7 @@ export default function Cards() {
       <div className="text-4xl font-bold text-center text-white py-8 ">
         <h2 className="shineWhite">Recent Activities</h2>
       </div>
-      <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-2 justify-center px-16 py-2">
+      <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-2 justify-center px-6 md:px-16 py-2">
         <div className="flex flex-col rounded-lg bg-white shadow-lg dark:bg-neutral-700 md:max-w-lg md:flex-row shadowInner">
           <img
             className="w-28 h-28 rounded-full object-cover ml-8 mt-8"
