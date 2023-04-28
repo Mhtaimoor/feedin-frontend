@@ -8,7 +8,7 @@ import { Carousel } from "react-responsive-carousel";
 
 export default function Carousal() {
   return (
-    <div className="px-16 grid grid-col-1 md:grid-cols-2 gap-4 bg-zinc-800 rounded-bl-3xl md:rounded-bl-full">
+    <div className=" p-8 md:px-16 grid grid-col-1 md:grid-cols-2 gap-4 bg-zinc-800 rounded-bl-3xl md:rounded-bl-full">
       <div className="p-12 py-22">
         <h1 className="py-5 text-4xl text-white font-bold">
           Make Your Favorites{" "}
