@@ -133,7 +133,7 @@ body {
   position: relative;
   transform: translateY(150px);
   opacity: 0;
-  transition: 2s all ease;
+  transition: 1s all ease;
 }
 .reveal.active {
   transform: translateY(0);
