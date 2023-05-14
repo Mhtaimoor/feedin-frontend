@@ -42,7 +42,7 @@ export default function Signup(props) {
         <div className="col-span-2 bg-gradient-to-l from-blue-700 via-blue-800 to-gray-900">
           <AuthText />
         </div>
-        <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black py-12">
+        <div className="bg-zinc-800 py-12">
           <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto md:h-full lg:py-0">
             <Link
               to="/"

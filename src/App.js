@@ -10,6 +10,7 @@ import ReviewForm from "./components/reviewPage/ReviewForm";
 import Policy from "./components/policy/Policy";
 import LogHome from "./components/logged/LogHome";
 import Settings from "./components/settings/Settings";
+import Confetti from "./components/confetti/Congrats";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/user/writeReview" element={<ReviewForm />}></Route>
         <Route path="/user/settings" element={<Settings />}></Route>
         <Route path="/user/brands/:id" element={<SingleBrand />} />
+        <Route path="/user/congrats/" element={<Confetti />} />
       </Routes>
     </BrowserRouter>
   );

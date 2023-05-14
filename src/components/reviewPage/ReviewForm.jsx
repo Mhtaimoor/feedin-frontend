@@ -2,75 +2,167 @@ import { React, useState, useEffect } from "react";
 import Footer from "../partials/Footer";
 import LogNavbar from "../logged/LogNavbar";
 import userService from "../../services/UserService";
+import { useLocation } from "react-router-dom";
+import Select from "react-select";
+import brandsService from "../../services/BrandService";
 
 export default function ReviewForm(props) {
-  const [username, setUsername] = useState("");
+  const location = useLocation();
 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  // console.log(email);
   const [id, setId] = useState(null);
+  const [brands, setBrands] = useState([]);
+  const [brandNames, setBrandNames] = useState([]);
+
+  const [brandName, setBrandName] = useState(
+    location.state
+      ? {
+          value: location.state.brand?.name,
+          label: location.state.brand?.name,
+        }
+      : ""
+  );
+
+  // console.log(brandName);
+  const [dateValue, setDateValue] = useState("");
+  const [heading, setHeading] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+    console.log(event.target.value); // will print the selected value to the console
+  };
+  const [reviewText, setReviewText] = useState("");
+  const [selectedCuisines, setSelectedCuisines] = useState("");
+
+  const [editLogo, setEditLogo] = useState("");
+  const [logo, setLogo] = useState("");
+
+  // const [editImage, setEditImage] = useState("");
+  const [logoImagePreview, setLogoImagePreview] = useState(null);
+
+  const [transformedBrandNames, setTransformedBrandNames] = useState([]);
+  const [cuisines, setCuisines] = useState([]);
+
+  console.log({
+    brandName,
+    dateValue,
+    heading,
+    email,
+    selectedValue,
+    reviewText,
+    selectedCuisines,
+  });
+
+  useEffect(() => {
+    brandsService
+      .getBrands()
+      .then((res) => {
+        setBrands(res);
+        setBrandNames(res?.map((brand) => brand.name));
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    setTransformedBrandNames(
+      brandNames?.map((name) => ({
+        value: name,
+        label: name,
+      }))
+    );
+  }, [brandNames]);
+
+  useEffect(() => {
+    brandsService.getSingleBrand(brandName?.value).then((res) => {
+      setCuisines(res.cuisines.split(", "));
+    });
+  }, [brandName]);
 
   useEffect(() => {
     // get logged in user
     const user = userService.getCurrentUser();
+
     if (user) {
       setId(user.id);
       setUsername(user.username);
     }
   }, []);
+
+  const handleChange = (e) => {
+    if (e.target.name === "logo") {
+      const selectedFile = e.target.files[0];
+      setEditLogo(selectedFile);
+      setLogo(selectedFile);
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setLogoImagePreview(objectUrl);
+    }
+  };
   return (
     <>
-      <div className=" bg-gradient-to-r from-gray-500 via-gray-900 to-gray-700 reviewShadow">
+      <div className="bg-gray-100 ">
         <LogNavbar />
-        <div className="py-20">
+        <div className="py-10">
           {/* <!-- component --> */}
-          <section class="max-w-4xl p-6 mx-auto bg-gradient-to-tl from-gray-700 via-gray-900 to-black rounded-md shadow-md dark:bg-gray-800">
-            <h1 class="text-3xl py-2 shineWhite text-center font-bold text-white capitalize dark:text-white">
+          <section className="max-w-4xl p-6 mx-auto  rounded-md shadow-2xl bg-zinc-800 reviewShadow">
+            <h1 className="text-3xl py-2 shineWhite text-center font-bold text-white capitalize dark:text-white">
               Write a Review and Get Rewards!
             </h1>
-            <form>
-              <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <form method="POST">
+              <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
                 <div>
-                  <label class="text-white dark:text-gray-200" for="username">
-                    Location
-                  </label>
-                  <select
-                    id="countries"
-                    class="bg-gray-50 border border-3 py-2 px-4 mt-2 border-gray-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  placeholder-gray-400 text-gray-700"
+                  <label
+                    className="text-white dark:text-gray-200"
+                    for="username"
                   >
-                    <option selected>Choose Your Area</option>
-                    <option value="JT">Johar Town</option>
-                    <option value="WT">Wapda Town</option>
-                  </select>
+                    Brand Name
+                  </label>
+                  <div className="py-2.5">
+                    <Select
+                      value={brandName}
+                      isMulti={false}
+                      options={transformedBrandNames}
+                      closeMenuOnSelect={true}
+                      onChange={(option) => {
+                        setBrandName(option);
+                      }}
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label class="text-white dark:text-gray-200" for="username">
-                    Restaurant
+                  <label className="text-white dark:text-gray-200">
+                    When do you visit the Restaurant?
                   </label>
-                  <select
-                    id="countries"
-                    class="bg-gray-50 border border-3 py-2 px-4 mt-2 border-gray-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  placeholder-gray-400 text-gray-700"
-                  >
-                    <option selected>Choose Restaurant</option>
-                    <option value="JT">Dominos</option>
-                    <option value="WT">Cheezious</option>
-                  </select>
+                  <input
+                    type="date"
+                    onChange={(e) => {
+                      setDateValue(e.target.value);
+                    }}
+                    className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
                 </div>
 
                 <div>
                   <label
-                    class="text-white dark:text-gray-200"
+                    className="text-white dark:text-gray-200"
                     for="emailAddress"
                   >
-                    Email Address
+                    Your Email Address
                   </label>
                   <input
                     id="emailAddress"
                     type="email"
-                    placeholder="Enter email address"
-                    class="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    placeholder="someone@gmail.com"
+                    className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
                 </div>
                 <div>
-                  <h3 class="mb-4 font-medium text-white">
+                  <h3 class="pb-2 font-medium text-white">
                     How was the Restaurant?
                   </h3>
                   <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -79,9 +171,10 @@ export default function ReviewForm(props) {
                         <input
                           id="horizontal-list-radio-license"
                           type="radio"
-                          value=""
+                          value="Poor"
                           name="list-radio"
-                          class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                          onChange={handleRadioChange}
+                          className="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
                           for="horizontal-list-radio-license"
@@ -96,8 +189,9 @@ export default function ReviewForm(props) {
                         <input
                           id="horizontal-list-radio-id"
                           type="radio"
-                          value=""
+                          value="Good"
                           name="list-radio"
+                          onChange={handleRadioChange}
                           class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
@@ -113,8 +207,9 @@ export default function ReviewForm(props) {
                         <input
                           id="horizontal-list-radio-millitary"
                           type="radio"
-                          value=""
+                          value="V.Good"
                           name="list-radio"
+                          onChange={handleRadioChange}
                           class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
@@ -130,8 +225,9 @@ export default function ReviewForm(props) {
                         <input
                           id="horizontal-list-radio-passport"
                           type="radio"
-                          value=""
+                          value="Excellent"
                           name="list-radio"
+                          onChange={handleRadioChange}
                           class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
@@ -144,10 +240,65 @@ export default function ReviewForm(props) {
                     </li>
                   </ul>
                 </div>
-
                 <div>
                   <label
                     class="text-white dark:text-gray-200"
+                    for="emailAddress"
+                  >
+                    Heading for Review
+                  </label>
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setHeading(e.target.value);
+                    }}
+                    placeholder="Good, Excellent, Bad, etc..."
+                    class="block w-full px-4 py-2 my-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                  <label
+                    class="text-white dark:text-gray-200"
+                    for="emailAddress"
+                  >
+                    What do you have?
+                  </label>
+                  <select
+                    className="w-full p-2 rounded-md my-2"
+                    onChange={(e) => {
+                      setSelectedCuisines(e.target.value);
+                    }}
+                  >
+                    <option>Select One...</option>
+                    {cuisines?.map((cuisine, index) => {
+                      return (
+                        <option key={index} value={cuisine}>
+                          {cuisine}
+                        </option>
+                      );
+                    })}
+                  </select>
+
+                  <label
+                    class="text-white dark:text-gray-200"
+                    for="emailAddress"
+                  >
+                    With whom did you go?
+                  </label>
+                  <select
+                    className="w-full p-2 rounded-md my-2"
+                    onChange={(e) => {
+                      setSelectedValue(e.target.value);
+                    }}
+                  >
+                    <option>Select One...</option>
+                    <option>Family</option>
+                    <option>Friends</option>
+                    <option>Couple</option>
+                    <option>Alone</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    className="text-white dark:text-gray-200"
                     for="passwordConfirmation"
                   >
                     Enter Your Review
@@ -155,54 +306,70 @@ export default function ReviewForm(props) {
                   <textarea
                     id="textarea"
                     type="textarea"
-                    placeholder="Enter your review here..."
-                    rows="5"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Briefly Share your thoughts here..."
+                    rows="8"
+                    onChange={(e) => {
+                      setReviewText(e.target.value);
+                    }}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   ></textarea>
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-white">
+                  <label className="block text-sm font-medium text-white">
                     Upload Image
                   </label>
-                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                    <div class="space-y-1 text-center">
-                      <svg
-                        class="mx-auto h-12 w-12 text-white"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
+                      {logoImagePreview ? (
+                        <img
+                          src={logoImagePreview}
+                          className="w-48 h-48 object-contain"
+                          alt="Logo Preview"
                         />
-                      </svg>
-                      <div class="flex text-sm text-gray-600">
+                      ) : (
+                        <div className="flex items-center justify-center h-32 rounded-md">
+                          <svg
+                            className="h-12 w-12 text-gray-400"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 48 48"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                      <div className="flex text-sm text-gray-600 ">
                         <label
-                          for="file-upload"
-                          class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                          htmlFor="logo"
+                          className=" relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
-                          <span class="px-1">Upload a file</span>
+                          <span className="px-1 ">Upload a file</span>
                           <input
-                            id="file-upload"
-                            name="file-upload"
+                            id="logo"
+                            name="logo"
                             type="file"
-                            class="sr-only"
+                            className="sr-only"
+                            onChange={handleChange}
                           />
                         </label>
-                        <p class="pl-1 text-white">or drag and drop</p>
+                        <p className="pl-1 text-white">or drag and drop</p>
                       </div>
-                      <p class="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
+                      <p className="text-xs text-white">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex justify-end mt-6">
-                <button class="hover:bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] hover:from-gray-900 hover:via-gray-300 hover:to-gray-900 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 py-2 px-4 text-sm font-semibold rounded-md">
+                <button class="bg-white hover:bg-gray-200 py-2 px-4 text-sm font-semibold rounded-md">
                   Submit
                 </button>
               </div>

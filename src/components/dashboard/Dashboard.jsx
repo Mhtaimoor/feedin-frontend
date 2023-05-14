@@ -1,6 +1,9 @@
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Rewards from "./Rewards";
+import Reviews from "./Reviews";
+import Favorites from "./Favorites";
 
 export default function Dashboard() {
   const percentage = 66;
@@ -30,15 +33,15 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="w-full p-10 bg-gray-100  rounded-3xl">
-          <h2 className="text-xl font-semibold px-6">Your Rewards</h2>
+          <Rewards />
         </div>
       </div>
       <div className="grid grid-cols-2 mt-10 gap-4">
         <div className="w-full p-10 bg-gray-100  rounded-3xl">
-          <h2 className="text-xl font-semibold px-6">Your Reviews</h2>
+          <Reviews />
         </div>
         <div className="w-full p-10 bg-gray-100  rounded-3xl">
-          <h2 className="text-xl font-semibold px-6">Your Favorites</h2>
+          <Favorites />
         </div>
       </div>
     </div>

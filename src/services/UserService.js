@@ -31,9 +31,9 @@ class UserService extends GenericService {
   getProfile = (id) =>
     new Promise((resolve, reject) => {
       // console.log(id);
-      this.get("users/profile" + id)
+      this.get("users/profile/" + id)
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           resolve(data);
         })
         .catch((err) => {
@@ -43,7 +43,7 @@ class UserService extends GenericService {
     });
 
   logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("FeedInnUserToken");
   };
 
   getCurrentUser = () => {
@@ -78,10 +78,17 @@ class UserService extends GenericService {
         });
     });
 
-  updateUserStatus = (id, data) =>
+  updateUser = (id, { newName, editImage, newUsername, newEmail }) =>
     new Promise((resolve, reject) => {
-      this.put("/users/" + id, data)
+      const formData = new FormData();
+      formData.append("editImage", editImage);
+      formData.append("name", newName);
+      formData.append("username", newUsername);
+      formData.append("email", newEmail);
+
+      this.put("/users/" + id, formData)
         .then((data) => {
+          console.log(data);
           resolve(data);
         })
         .catch((err) => {

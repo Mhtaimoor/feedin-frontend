@@ -34,7 +34,7 @@ export default function Login(props) {
         <div className="col-span-2 bg-gradient-to-l from-blue-700 via-blue-800 to-gray-900 h-full">
           <AuthText />
         </div>
-        <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+        <div className="bg-zinc-800">
           <div className="flex flex-col items-center justify-center px-6 py-2 mx-auto md:h-screen lg:py-0">
             <Link
               to="/"

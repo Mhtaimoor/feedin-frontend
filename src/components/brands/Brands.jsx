@@ -18,37 +18,42 @@ export default function Brands(props) {
   const [cuisines, setCuisines] = useState([]);
   const [cuisinesStr, setCuisinesStr] = useState([]);
 
-  // console.log(brandName);
-
-  // console.log(cuisinesStr);
-
   useEffect(() => {
     brandsService
       .getBrands()
       .then((res) => {
-        // console.log(res);
         setBrands(res);
-        setBrandNames(res?.map((brand) => brand.name));
-        setCuisines(res?.map((brand) => brand.cuisines));
-        setTransformedBrandNames(
-          brandNames?.map((name) => ({
-            value: name,
-            label: name,
-          }))
-        );
-        setCuisinesStr(
-          [
-            ...new Set(
-              cuisines
-                .join(",")
-                .split(",")
-                .map((word) => word.trim())
-            ),
-          ].join(", ")
-        );
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
+
+  useEffect(() => {
+    setBrandNames(brands?.map((brand) => brand.name));
+    setCuisines(brands?.map((brand) => brand.cuisines));
+  }, [brands]);
+
+  useEffect(() => {
+    setTransformedBrandNames(
+      brandNames?.map((name) => ({
+        value: name,
+        label: name,
+      }))
+    );
+    setCuisinesStr(
+      [
+        ...new Set(
+          cuisines
+            .join(",")
+            .split(",")
+            .map((word) => word.trim())
+        ),
+      ].join(", ")
+    );
+  }, [brandNames, cuisines]);
+
+  // console.log(brands);
+  // console.log(transformedBrandNames);
+  // console.log(cuisinesStr);
 
   return (
     <>
@@ -57,9 +62,8 @@ export default function Brands(props) {
 
         <div className="md:px-20 px-10 py-2">
           <Filter
-            transformedBrandNames={transformedBrandNames}
             cuisinesStr={cuisinesStr}
-            brandNames={brandNames}
+            transformedBrandNames={transformedBrandNames}
             brandName={brandName}
             brands={brands}
             page={page}

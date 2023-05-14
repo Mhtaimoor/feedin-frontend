@@ -5,17 +5,41 @@ import BrandCard from "../brands/BrandCard";
 import ReactPaginate from "react-paginate";
 
 const Filter = (props) => {
-  //   console.log(transformedBrandNames);
-  // const [brands, setBrands] = useState([]);
+  const brandNames = props.transformedBrandNames;
+  console.log(brandNames);
+  const [brands, setBrands] = useState([]);
 
-  // const [totals, setTotals] = useState();
+  const [totals, setTotals] = useState();
   const [perPage] = useState(15);
   const [page, setPage] = useState(1);
   const [brandName, setBrandName] = useState("");
   // console.log(brandName);
-  const [brandNames, setBrandNames] = useState(props.brandNames);
-  const [cuisines, setCuisines] = useState(props.cuisines);
-  // console.log(cuisines);
+  const [selectedCuisines, setSelectedCuisines] = useState([]);
+  // console.log(selectedCuisines);
+
+  const handleCuisineSelect = (cuisine) => {
+    if (!selectedCuisines) {
+      setSelectedCuisines([cuisine]);
+    } else if (selectedCuisines.includes(cuisine)) {
+      setSelectedCuisines(selectedCuisines.filter((c) => c !== cuisine));
+    } else {
+      setSelectedCuisines([...selectedCuisines, cuisine]);
+    }
+  };
+
+  const filteredRestaurants = props.brands?.filter(
+    (restaurant) =>
+      selectedCuisines.every(
+        (cuisine) =>
+          restaurant.cuisines &&
+          restaurant.cuisines.split(", ").includes(cuisine)
+      ) &&
+      (brandName
+        ? restaurant.name && restaurant.name.includes(brandName.value)
+        : true)
+  );
+
+  // console.log(filteredRestaurants);
 
   const [showFilters, setShowfilters] = useState(true);
   // console.log(showFilters);
@@ -46,6 +70,7 @@ const Filter = (props) => {
     Afghan: false,
     Labanese: false,
   });
+  // console.log(check);
 
   const {
     Italian,
@@ -113,7 +138,6 @@ const Filter = (props) => {
     });
     setChecked([]);
   };
-  const applyFilters = (e) => {};
 
   return (
     <>
@@ -293,11 +317,12 @@ const Filter = (props) => {
         <div
           id="filterSection"
           className={
-            "relative md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 rounded-3xl w-full" +
+            "relative md:py-10 lg:px-20 md:px-6 py-9 px-4 bg-gray-50 w-full rounded-3xl " +
             (showFilters ? "block" : "hidden")
           }
         >
           {/* Cross button Code  */}
+
           <div
             onClick={() => setShowfilters(false)}
             className=" cursor-pointer absolute right-0 top-0 md:py-10 lg:px-20 md:px-6 py-9 px-4"
@@ -324,7 +349,6 @@ const Filter = (props) => {
               />
             </svg>
           </div>
-
           <div className="form-group mr-16">
             <div className=" flex space-x-2">
               <svg
@@ -350,7 +374,7 @@ const Filter = (props) => {
               <Select
                 value={brandName}
                 isMulti={false}
-                options={props.transformedBrandNames}
+                options={brandNames}
                 closeMenuOnSelect={true}
                 onChange={(option) => {
                   setBrandName(option);
@@ -361,7 +385,7 @@ const Filter = (props) => {
 
           <hr className=" bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
 
-          {/* Colors Section */}
+          {/* Cuisines Section */}
           <div>
             <div className=" flex space-x-2">
               <svg
@@ -410,11 +434,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 rounded-full mr-2"
                   type="checkbox"
-                  id="Italian"
-                  name="Italian"
                   value="Italian"
-                  checked={Italian}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Italian")}
+                  onChange={() => handleCuisineSelect("Italian")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -431,11 +453,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="French"
-                  name="French"
                   value="French"
-                  checked={French}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("French")}
+                  onChange={() => handleCuisineSelect("French")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -452,11 +472,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Chinese"
-                  name="Chinese"
                   value="Chinese"
-                  checked={Chinese}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Chinese")}
+                  onChange={() => handleCuisineSelect("Chinese")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -473,11 +491,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Thai"
-                  name="Thai"
                   value="Thai"
-                  checked={Thai}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Thai")}
+                  onChange={() => handleCuisineSelect("Thai")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -494,11 +510,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Fusion"
-                  name="Fusion"
                   value="Fusion"
-                  checked={Fusion}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Fusion")}
+                  onChange={() => handleCuisineSelect("Fusion")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -515,11 +529,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="American"
-                  name="American"
                   value="American"
-                  checked={American}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("American")}
+                  onChange={() => handleCuisineSelect("American")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -536,11 +548,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Diner"
-                  name="Diner"
                   value="Diner"
-                  checked={Diner}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Diner")}
+                  onChange={() => handleCuisineSelect("Diner")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -557,11 +567,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="FastFood"
-                  name="FastFood"
-                  value="FastFood"
-                  checked={FastFood}
-                  onChange={changeHandler}
+                  value="fastFood"
+                  checked={selectedCuisines.includes("fastFood")}
+                  onChange={() => handleCuisineSelect("fastFood")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -578,11 +586,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="International"
-                  name="International"
                   value="International"
-                  checked={International}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("International")}
+                  onChange={() => handleCuisineSelect("International")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -599,11 +605,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Asian"
-                  name="Asian"
                   value="Asian"
-                  checked={Asian}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Asian")}
+                  onChange={() => handleCuisineSelect("Asian")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -620,11 +624,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="MiddleEastern"
-                  name="MiddleEastern"
-                  value="MiddleEastern"
-                  checked={MiddleEastern}
-                  onChange={changeHandler}
+                  value="middleEastern"
+                  checked={selectedCuisines.includes("middleEastern")}
+                  onChange={() => handleCuisineSelect("middleEastern")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -641,11 +643,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Cafe"
-                  name="Cafe"
                   value="Cafe"
-                  checked={Cafe}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Cafe")}
+                  onChange={() => handleCuisineSelect("Cafe")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -662,11 +662,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Pizza"
-                  name="Pizza"
                   value="Pizza"
-                  checked={Pizza}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Pizza")}
+                  onChange={() => handleCuisineSelect("Pizza")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -683,11 +681,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Pakistani"
-                  name="Pakistani"
                   value="Pakistani"
-                  checked={Pakistani}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Pakistani")}
+                  onChange={() => handleCuisineSelect("Pakistani")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -704,11 +700,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Healthy"
-                  name="Healthy"
                   value="Healthy"
-                  checked={Healthy}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Healthy")}
+                  onChange={() => handleCuisineSelect("Healthy")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -725,11 +719,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="CentralAsian"
-                  name="CentralAsian"
-                  value="CentralAsian"
-                  checked={CentralAsian}
-                  onChange={changeHandler}
+                  value="centralAsian"
+                  checked={selectedCuisines.includes("centralAsian")}
+                  onChange={() => handleCuisineSelect("centralAsian")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -746,11 +738,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Barbecue"
-                  name="Barbecue"
                   value="Barbecue"
-                  checked={Barbecue}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Barbecue")}
+                  onChange={() => handleCuisineSelect("Barbecue")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -767,11 +757,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Bar"
-                  name="Bar"
                   value="Bar"
-                  checked={Bar}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Bar")}
+                  onChange={() => handleCuisineSelect("Bar")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -788,11 +776,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Pub"
-                  name="Pub"
                   value="Pub"
-                  checked={Pub}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Pub")}
+                  onChange={() => handleCuisineSelect("Pub")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -809,11 +795,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Portuguese"
-                  name="Portuguese"
                   value="Portuguese"
-                  checked={Portuguese}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Portuguese")}
+                  onChange={() => handleCuisineSelect("Portuguese")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -830,11 +814,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Arabic"
-                  name="Arabic"
                   value="Arabic"
-                  checked={Arabic}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Arabic")}
+                  onChange={() => handleCuisineSelect("Arabic")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -851,11 +833,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Afghan"
-                  name="Afghan"
                   value="Afghan"
-                  checked={Afghan}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Afghan")}
+                  onChange={() => handleCuisineSelect("Afghan")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -872,11 +852,9 @@ const Filter = (props) => {
                 <input
                   className="w-4 h-4 mr-2 rounded-full"
                   type="checkbox"
-                  id="Labanese"
-                  name="Labanese"
                   value="Labanese"
-                  checked={Labanese}
-                  onChange={changeHandler}
+                  checked={selectedCuisines.includes("Labanese")}
+                  onChange={() => handleCuisineSelect("Labanese")}
                 />
                 <div className=" inline-block">
                   <div className=" flex space-x-6 justify-center items-center">
@@ -896,13 +874,7 @@ const Filter = (props) => {
 
           <div className="flex px-0 mt-10 w-full md:w-auto md:mt-0 md:absolute md:right-0 md:bottom-0 md:py-10 lg:px-10 md:px-6">
             <button
-              onClick={clearFilters}
-              className=" hover:bg-gray-700 focus:ring focus:ring-offset-2 rounded-full focus:ring-gray-800 text-base leading-4 font-medium py-4 px-6 mr-2 text-white bg-gray-800"
-            >
-              Clear Filters
-            </button>
-            <button
-              onClick={applyFilters}
+              onClick={() => setShowfilters(false)}
               className=" hover:bg-gray-700 focus:ring focus:ring-offset-2 rounded-full focus:ring-gray-800 text-base leading-4 font-medium py-4 px-8 text-white bg-gray-800"
             >
               Apply Filter
@@ -912,7 +884,7 @@ const Filter = (props) => {
       </div>
       <div>
         <div className="px-30 py-10">
-          {props.brands
+          {filteredRestaurants
             ?.slice((page - 1) * perPage, page * perPage)
             .map((brand, index, { length }) => {
               return (
@@ -929,7 +901,7 @@ const Filter = (props) => {
           breakLabel="..."
           breakClassName="page-item"
           breakLinkClassName="page-link"
-          pageCount={Math.ceil(props.brands?.length / perPage)}
+          pageCount={Math.ceil(filteredRestaurants?.length / perPage)}
           pageRangeDisplayed={4}
           marginPagesDisplayed={2}
           onPageChange={handlePageClick}
@@ -945,8 +917,8 @@ const Filter = (props) => {
         <div className="row text-center mx-auto py-4">
           <div className="col-12 ">
             <h5>
-              Total: {props.brands?.length} Showing {(page - 1) * perPage + 1}{" "}
-              to {page * perPage}
+              Total: {filteredRestaurants?.length} Showing{" "}
+              {(page - 1) * perPage + 1} to {page * perPage}
             </h5>
           </div>
         </div>

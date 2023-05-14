@@ -1,9 +1,10 @@
 import { useState, Fragment, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import slide1 from "../../assets/slider1.jpg";
 import { Transition, Menu } from "@headlessui/react";
 import userService from "../../services/UserService";
+import { Base_URL } from "../../config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -15,13 +16,18 @@ const userNavigation = [
 ];
 
 export default function Navbar(props) {
+  const navigate = useNavigate();
   const [id, setId] = useState();
   const [username, setUsername] = useState();
   const location = useLocation();
   // console.log(props);
 
-  const [name, setName] = useState("");
   const [navbarOpen, setNavbarOpen] = useState(false);
+
+  const handleSignout = () => {
+    userService.logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     // get logged in user
@@ -33,17 +39,32 @@ export default function Navbar(props) {
     }
   }, []);
 
+  const [user, setUser] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+
+  useEffect(() => {
+    userService
+      .getProfile(user.id)
+      .then((userData) => {
+        setImagePreview(`${Base_URL}users/${userData.image}`);
+        setUser(userData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
+
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-12 py-3 pt-4 mb-0 bg-zinc-800">
         <div className="container mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
+            <Link
               className="leading-relaxed inline-block mr-4 whitespace-nowrap "
-              href="#pablo"
+              to="/"
             >
               <img src={logo} alt="logo" className="h-12 px-5" />
-            </a>
+            </Link>
             <button
               className="text-white cursor-pointer text-3xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -94,11 +115,20 @@ export default function Navbar(props) {
                       type="button"
                       className="relative inline-flex items-center pl-2 pr-3 py-1 border border-gray-400 shadow-sm text-sm rounded-3xl text-black bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                     >
-                      <img
-                        className="h-10 w-10 rounded-full mr-3"
-                        src={slide1}
-                        alt=""
-                      />
+                      {imagePreview ? (
+                        <img
+                          className="h-10 w-10 rounded-full mr-3"
+                          src={imagePreview}
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          className="h-10 w-10 rounded-full mr-3"
+                          src={slide1}
+                          alt=""
+                        />
+                      )}
+
                       <div className="text-left w-22">
                         <p className="font-semibold">{username}</p>
                       </div>
@@ -123,6 +153,11 @@ export default function Navbar(props) {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-black hover:bg-purple-700 hover:text-white hover:rounded-xl hover:font-medium"
                               )}
+                              onClick={
+                                item.name === "Sign out"
+                                  ? handleSignout
+                                  : undefined
+                              }
                             >
                               {item.name}
                             </Link>

@@ -110,7 +110,7 @@ export default function BrandCard({ brand }) {
               </svg>
 
               <p className="ml-2 text-sm font-medium text-gray-700">
-                {brand.rating ? brand.rating : "No Rating"}
+                Rating: {brand.rating ? brand.rating : "No Rating"}
               </p>
             </div>
             <div className="text-sm  mt-2">

@@ -6,7 +6,31 @@ import slide3 from "../../assets/slider3.jpg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
+import userService from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
+
 export default function Carousal() {
+  const navigate = useNavigate();
+
+  const handleBrands = (e) => {
+    const user = userService.getCurrentUser();
+
+    if (user) {
+      navigate("/user/brands");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleWriteReview = (e) => {
+    const user = userService.getCurrentUser();
+
+    if (user) {
+      navigate("/user/writeReview");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className=" p-8 md:px-16 grid grid-col-1 md:grid-cols-2 gap-4 bg-zinc-800 rounded-bl-3xl md:rounded-bl-full">
       <div className="p-12 py-22">
@@ -17,6 +41,7 @@ export default function Carousal() {
         <div className="md:mt-24 mt-20">
           <button
             type="button"
+            onClick={handleBrands}
             class="text-white bg-purple-700 hover:bg-purple-800 md:mx-3 font-semibold focus:ring-4 focus:outline-none focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
           >
             View Brands
@@ -36,6 +61,7 @@ export default function Carousal() {
           </button>
           <button
             type="button"
+            onClick={handleWriteReview}
             class="text-purple-700 bg-white hover:bg-gray-300 mt-2 md:mt-0 focus:ring-4 focus:outline-none focus:ring-purple-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center "
           >
             Write a Review
@@ -55,7 +81,7 @@ export default function Carousal() {
           </button>
         </div>
       </div>
-      <div className="sliders py-8 overflow-hidden ">
+      <div className="sliders overflow-hidden rounded-2xl">
         <Carousel autoPlay infiniteLoop>
           <div>
             <img src={slide1} id="image" alt="" />

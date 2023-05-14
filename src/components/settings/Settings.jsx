@@ -3,30 +3,27 @@ import LogNavbar from "../logged/LogNavbar";
 import ProfileCard from "./ProfileCard";
 import Info from "./Info";
 import userService from "../../services/UserService";
+import { Base_URL } from "../../config";
 
 export default function Settings() {
-  const [id, setId] = useState("");
-  const [fullName, setFullName] = useState("");
-
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   useEffect(() => {
-    // get logged in user
-    // console.log(id);
     const user = userService.getCurrentUser();
-    // console.log(user);
     if (user) {
-      const userData = userService.getProfile(user.id);
-      console.log(userData);
-      if (userData) {
-        setFullName(userData.name);
-
-        setEmail(userData.email);
-      } else {
-        console.log("nothing get");
-      }
+      userService
+        .getProfile(user.id)
+        .then((userData) => {
+          setImagePreview(`${Base_URL}users/${userData.image}`);
+          setUser(userData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
+
   return (
     <div className="Profile">
       <LogNavbar />
@@ -34,10 +31,10 @@ export default function Settings() {
 
       <div className="p-12 flex">
         <div className="">
-          <ProfileCard />
+          <ProfileCard user={user} imagePreview={imagePreview} />
         </div>
         <div className="md:ml-5 w-full">
-          <Info />
+          <Info user={user} />
         </div>
       </div>
       <div className="p-12 w-1/2"></div>
