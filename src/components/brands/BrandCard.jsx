@@ -40,7 +40,7 @@ export default function BrandCard({ brand }) {
               <p className="mb-2 font-medium">{brand.address}</p>
             </div>
             <p className="mb-3 font-normal text-gray-700">
-              {brand.reviews?.length} Reviews
+              {brand.reviews?.length ? brand.reviews?.length : "0"} Reviews
             </p>
 
             {/* <div class="flex items-center">

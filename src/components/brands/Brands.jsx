@@ -10,8 +10,7 @@ import Filter from "./Filters";
 
 export default function Brands(props) {
   const [brands, setBrands] = useState([]);
-  const [perPage] = useState(15);
-  const [page] = useState(1);
+
   const [brandName] = useState(null);
   const [brandNames, setBrandNames] = useState();
   const [transformedBrandNames, setTransformedBrandNames] = useState([]);
@@ -66,8 +65,6 @@ export default function Brands(props) {
             transformedBrandNames={transformedBrandNames}
             brandName={brandName}
             brands={brands}
-            page={page}
-            perPage={perPage}
           />
         </div>
       </div>

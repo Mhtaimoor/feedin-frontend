@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import restaurant from "../../assets/restaurant.png";
 import brandService from "../../services/BrandService";
 import Reviews from "./Reviews";
+import { Carousel } from "react-responsive-carousel";
 
 export default function SingleBrand() {
   const { id } = useParams();
@@ -112,52 +113,65 @@ export default function SingleBrand() {
             </div>
           </div>
         </div>
-
-        {/* Reviews Section */}
-        <div className="bg-gray-100 p-10 mt-2 rounded-lg col-span-2">
-          <h2 className="text-2xl font-semibold text-center md:text-left">
-            Reviews:{" "}
-            <span className="font-medium text-xl">
-              ({brand?.reviews?.length} reviews)
-            </span>
-          </h2>
-          <div className=" scrollbar-thin h-screen scrollbar-track-grey-300 overflow-y-scroll scrollbar-thumb-grey-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
-            {reviews?.map((review, index) => {
-              return (
-                <div>
-                  <Reviews review={review} />
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="w-full text-center md:pt-3">
-            <div className="w-full block">
-              <h2 className="text-xl font-semibold mt-16">
-                Want to add Something?{" "}
-              </h2>
+        <div className="grid grid-cols-2 gap-2">
+          {/* Reviews Section */}
+          <div className="bg-gray-100 p-10 mt-2 rounded-lg ">
+            <h2 className="text-2xl font-semibold text-center">
+              Reviews{" "}
+              <span className="font-medium text-xl">
+                ({brand?.reviews?.length} reviews)
+              </span>
+            </h2>
+            <div className=" scrollbar-thin h-screen scrollbar-track-grey-300 overflow-y-scroll scrollbar-thumb-grey-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+              {reviews?.map((review, index) => {
+                return (
+                  <div>
+                    <Reviews review={review} />
+                  </div>
+                );
+              })}
             </div>
-            <div>
-              <button
-                type="button"
-                onClick={handleReviewPage}
-                className="text-white bg-purple-700 hover:bg-purple-800 mt-2 focus:ring-4 focus:ring-offset-2 focus:ring-purple-800 font-semibold rounded-2xl text-sm px-5 py-3 text-center inline-flex items-center "
-              >
-                Write a Review
-                <svg
-                  aria-hidden="true"
-                  class="w-5 h-5 ml-2 -mr-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+
+            <div className="w-full text-center md:pt-3">
+              <div className="w-full block">
+                <h2 className="text-xl font-semibold mt-16">
+                  Want to add Something?{" "}
+                </h2>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={handleReviewPage}
+                  className="text-white bg-purple-700 hover:bg-purple-800 mt-2 focus:ring-4 focus:ring-offset-2 focus:ring-purple-800 font-semibold rounded-2xl text-sm px-5 py-3 text-center inline-flex items-center "
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+                  Write a Review
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 ml-2 -mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-100 p-10 mt-2 rounded-lg">
+            <h2 className="text-2xl font-semibold text-center">Menu </h2>
+            <div className="rounded-2xl overflow-hidden mt-1">
+              <Carousel autoPlay infiniteLoop showThumbs={false}>
+                {Object.values(brand.menu).map((menuImage, index) => (
+                  <div key={index}>
+                    <img src={menuImage} alt="" />
+                  </div>
+                ))}
+              </Carousel>
             </div>
           </div>
         </div>

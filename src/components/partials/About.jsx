@@ -39,19 +39,19 @@ export default function About() {
   return (
     <>
       <h1 className="text-4xl text-center font-bold mb-16 pt-10">About Us</h1>
-      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12 reveal">
-        <div className="w-full lg:w-6/12 md:py-20 px-10 bg-gray-100">
+      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12">
+        <div className="w-full lg:w-6/12 md:py-20 px-10 bg-gray-100 ">
           <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">
             Are you a foodie who loves exploring new restaurants and sharing
             your dining experiences with others?
           </h2>
-          <p className="font-normal text-base leading-6 text-gray-600 mt-6 revealUp">
+          <p className="font-normal text-base leading-6 text-gray-600 mt-6">
             Then FeedINN is the perfect website for you! We offer a unique
             platform where you can earn free vouchers for your favorite
             restaurants simply by writing honest and detailed reviews.
           </p>
         </div>
-        <div className="w-full lg:w-6/12">
+        <div className="w-full lg:w-6/12 reveal">
           <img
             className="lg:block hidden w-full"
             src={critic}
@@ -69,8 +69,8 @@ export default function About() {
           />
         </div>
       </div>
-      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12 reveal bg-gray-100">
-        <div className="w-full lg:w-6/12">
+      <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12 bg-gray-100">
+        <div className="w-full lg:w-6/12 reveal">
           <img
             className="lg:block hidden w-full"
             src={critic2}

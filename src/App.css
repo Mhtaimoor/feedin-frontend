@@ -129,11 +129,31 @@ body {
     rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: animate 1s linear infinite;
+}
+
+#sliderImage {
+  height: 30em;
+}
+
 .reveal {
   position: relative;
   transform: translateY(150px);
   opacity: 0;
-  transition: 1s all ease;
+  transition: 0.8s all ease;
 }
 .reveal.active {
   transform: translateY(0);

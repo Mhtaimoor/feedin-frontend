@@ -28,7 +28,9 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.2",
+    "react-slick": "^0.29.0",
     "request": "^2.88.2",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.7.3",
     "swiper": "^9.0.5",
     "tw-elements": "^1.0.0-alpha13",
@@ -60,6 +62,5 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.2.6"
-    
   }
 }

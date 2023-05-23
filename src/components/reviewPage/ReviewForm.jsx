@@ -1,18 +1,23 @@
 import { React, useState, useEffect } from "react";
+
 import Footer from "../partials/Footer";
 import LogNavbar from "../logged/LogNavbar";
 import userService from "../../services/UserService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import brandsService from "../../services/BrandService";
+import { failure } from "../../utils/notification";
+import reviewsService from "../../services/ReviewService";
 
 export default function ReviewForm(props) {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [reviewerName, setUsername] = useState("");
   const [email, setEmail] = useState("");
   // console.log(email);
-  const [id, setId] = useState(null);
+  const [userId, setId] = useState(null);
+
   const [brands, setBrands] = useState([]);
   const [brandNames, setBrandNames] = useState([]);
 
@@ -26,16 +31,16 @@ export default function ReviewForm(props) {
   );
 
   // console.log(brandName);
-  const [dateValue, setDateValue] = useState("");
-  const [heading, setHeading] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
+  const [ratingDate, setDateValue] = useState("");
+  const [reviewHeading, setHeading] = useState("");
+  const [goesWith, setSelectedValue] = useState("");
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
     console.log(event.target.value); // will print the selected value to the console
   };
   const [reviewText, setReviewText] = useState("");
-  const [selectedCuisines, setSelectedCuisines] = useState("");
+  const [reviewerEat, setSelectedCuisines] = useState("");
 
   const [editLogo, setEditLogo] = useState("");
   const [logo, setLogo] = useState("");
@@ -45,15 +50,16 @@ export default function ReviewForm(props) {
 
   const [transformedBrandNames, setTransformedBrandNames] = useState([]);
   const [cuisines, setCuisines] = useState([]);
+  const [restaurantName, setRestaurantName] = useState("");
 
   console.log({
-    brandName,
-    dateValue,
-    heading,
+    restaurantName,
+    ratingDate,
+    reviewHeading,
     email,
-    selectedValue,
+    goesWith,
     reviewText,
-    selectedCuisines,
+    reviewerEat,
   });
 
   useEffect(() => {
@@ -82,6 +88,11 @@ export default function ReviewForm(props) {
   }, [brandName]);
 
   useEffect(() => {
+    setRestaurantName(brandName?.value);
+    console.log(restaurantName);
+  }, [brandName]);
+
+  useEffect(() => {
     // get logged in user
     const user = userService.getCurrentUser();
 
@@ -100,6 +111,25 @@ export default function ReviewForm(props) {
       setLogoImagePreview(objectUrl);
     }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(userId);
+    reviewsService
+      .createReview(
+        restaurantName,
+        userId,
+        reviewerName,
+        ratingDate,
+        reviewHeading,
+        reviewText,
+        reviewerEat,
+        goesWith
+      )
+      .then((res) => {
+        navigate("/user/congrats/");
+      })
+      .catch((err) => failure(err.response.data.message));
+  };
   return (
     <>
       <div className="bg-gray-100 ">
@@ -110,7 +140,7 @@ export default function ReviewForm(props) {
             <h1 className="text-3xl py-2 shineWhite text-center font-bold text-white capitalize dark:text-white">
               Write a Review and Get Rewards!
             </h1>
-            <form method="POST">
+            <form method="POST" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
                 <div>
                   <label
@@ -128,6 +158,7 @@ export default function ReviewForm(props) {
                       onChange={(option) => {
                         setBrandName(option);
                       }}
+                      required
                     />
                   </div>
                 </div>
@@ -140,6 +171,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setDateValue(e.target.value);
                     }}
+                    required
                     className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
                 </div>
@@ -157,6 +189,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
+                    required
                     placeholder="someone@gmail.com"
                     className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
@@ -252,6 +285,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setHeading(e.target.value);
                     }}
+                    required
                     placeholder="Good, Excellent, Bad, etc..."
                     class="block w-full px-4 py-2 my-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
@@ -266,6 +300,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setSelectedCuisines(e.target.value);
                     }}
+                    required
                   >
                     <option>Select One...</option>
                     {cuisines?.map((cuisine, index) => {
@@ -288,6 +323,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setSelectedValue(e.target.value);
                     }}
+                    required
                   >
                     <option>Select One...</option>
                     <option>Family</option>
@@ -305,13 +341,19 @@ export default function ReviewForm(props) {
                   </label>
                   <textarea
                     id="textarea"
-                    type="textarea"
-                    placeholder="Briefly Share your thoughts here..."
+                    placeholder="Share your thoughts here (minimum 50 words)..."
                     rows="8"
+                    required
                     onChange={(e) => {
                       setReviewText(e.target.value);
                     }}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    onKeyDown={(e) => {
+                      const words = e.target.value.split(/\s+/);
+                      if (words.length > 49 && e.keyCode === 32) {
+                        e.preventDefault();
+                      }
+                    }}
                   ></textarea>
                 </div>
                 <div>
@@ -369,7 +411,10 @@ export default function ReviewForm(props) {
               </div>
 
               <div class="flex justify-end mt-6">
-                <button class="bg-white hover:bg-gray-200 py-2 px-4 text-sm font-semibold rounded-md">
+                <button
+                  type="submit"
+                  class="bg-white hover:bg-gray-200 py-2 px-4 text-sm font-semibold rounded-md"
+                >
                   Submit
                 </button>
               </div>

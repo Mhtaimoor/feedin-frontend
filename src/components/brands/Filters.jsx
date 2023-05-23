@@ -6,16 +6,19 @@ import ReactPaginate from "react-paginate";
 
 const Filter = (props) => {
   const brandNames = props.transformedBrandNames;
-  console.log(brandNames);
+  // console.log(brandNames);
   const [brands, setBrands] = useState([]);
 
   const [totals, setTotals] = useState();
   const [perPage] = useState(15);
   const [page, setPage] = useState(1);
+  const [ratingValue, setRatingValue] = useState("");
   const [brandName, setBrandName] = useState("");
   // console.log(brandName);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   // console.log(selectedCuisines);
+
+  const [location, setLocation] = useState("");
 
   const handleCuisineSelect = (cuisine) => {
     if (!selectedCuisines) {
@@ -36,6 +39,12 @@ const Filter = (props) => {
       ) &&
       (brandName
         ? restaurant.name && restaurant.name.includes(brandName.value)
+        : true) &&
+      (location
+        ? restaurant.address && restaurant.address.includes(location)
+        : true) &&
+      (ratingValue
+        ? restaurant.rating && restaurant.rating.includes(ratingValue)
         : true)
   );
 
@@ -50,25 +59,10 @@ const Filter = (props) => {
     French: false,
     Chinese: false,
     Thai: false,
-    Fusion: false,
-    American: false,
-    Diner: false,
+
     FastFood: false,
-    International: false,
-    Asian: false,
-    MiddleEastern: false,
+
     Cafe: false,
-    Pizza: false,
-    Pakistani: false,
-    Healthy: false,
-    CentralAsian: false,
-    Barbecue: false,
-    Bar: false,
-    Pub: false,
-    Portuguese: false,
-    Arabic: false,
-    Afghan: false,
-    Labanese: false,
   });
   // console.log(check);
 
@@ -77,26 +71,16 @@ const Filter = (props) => {
     French,
     Chinese,
     Thai,
-    Fusion,
-    American,
-    Diner,
+
     FastFood,
-    International,
-    Asian,
-    MiddleEastern,
+
     Cafe,
-    Pizza,
-    Pakistani,
-    Healthy,
-    CentralAsian,
-    Barbecue,
-    Bar,
-    Pub,
-    Portuguese,
-    Arabic,
-    Afghan,
-    Labanese,
   } = check;
+
+  const handleRadioChange = (event) => {
+    setRatingValue(event.target.value);
+    console.log(event.target.value); // will print the selected value to the console
+  };
 
   const changeHandler = (e) => {
     setCheck({
@@ -116,25 +100,10 @@ const Filter = (props) => {
       French: false,
       Chinese: false,
       Thai: false,
-      Fusion: false,
-      American: false,
-      Diner: false,
+
       FastFood: false,
-      International: false,
-      Asian: false,
-      MiddleEastern: false,
+
       Cafe: false,
-      Pizza: false,
-      Pakistani: false,
-      Healthy: false,
-      CentralAsian: false,
-      Barbecue: false,
-      Bar: false,
-      Pub: false,
-      Portuguese: false,
-      Arabic: false,
-      Afghan: false,
-      Labanese: false,
     });
     setChecked([]);
   };
@@ -355,6 +324,50 @@ const Filter = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                />
+              </svg>
+
+              <p className=" lg:text-2xl text-xl lg:leading-6 leading-5 font-medium text-gray-800 ">
+                Search By Location
+              </p>
+            </div>
+            <div className="py-4">
+              <select
+                className="w-full p-2 rounded-md my-2"
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+                required
+              >
+                <option>Select One...</option>
+                <option>Johar Town</option>
+                <option>Wapda Town</option>
+                <option>Emporium Mall</option>
+              </select>
+            </div>
+          </div>
+
+          <hr className=" bg-gray-200 lg:w-6/12 w-full my-3" />
+
+          <div className="form-group mr-16">
+            <div className=" flex space-x-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-6 h-6"
@@ -383,493 +396,434 @@ const Filter = (props) => {
             </div>
           </div>
 
-          <hr className=" bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
+          <hr className=" bg-gray-200 lg:w-6/12 w-full my-3" />
 
-          {/* Cuisines Section */}
-          <div>
-            <div className=" flex space-x-2">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 3H15C14.4696 3 13.9609 3.21071 13.5858 3.58579C13.2107 3.96086 13 4.46957 13 5V17C13 18.0609 13.4214 19.0783 14.1716 19.8284C14.9217 20.5786 15.9391 21 17 21C18.0609 21 19.0783 20.5786 19.8284 19.8284C20.5786 19.0783 21 18.0609 21 17V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3Z"
-                  stroke="#1F2937"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12.9994 7.35022L10.9994 5.35022C10.6243 4.97528 10.1157 4.76465 9.58539 4.76465C9.05506 4.76465 8.54644 4.97528 8.17139 5.35022L5.34339 8.17822C4.96844 8.55328 4.75781 9.06189 4.75781 9.59222C4.75781 10.1225 4.96844 10.6312 5.34339 11.0062L14.3434 20.0062"
-                  stroke="#1F2937"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M7.3 13H5C4.46957 13 3.96086 13.2107 3.58579 13.5858C3.21071 13.9609 3 14.4696 3 15V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H17"
-                  stroke="#1F2937"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M17 17V17.01"
-                  stroke="#1F2937"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <p className=" lg:text-2xl text-xl lg:leading-6 leading-5 font-medium text-gray-800 ">
-                Search By Cuisines
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {/* Cuisines Section */}
+            <div>
+              <div className=" flex space-x-2">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 3H15C14.4696 3 13.9609 3.21071 13.5858 3.58579C13.2107 3.96086 13 4.46957 13 5V17C13 18.0609 13.4214 19.0783 14.1716 19.8284C14.9217 20.5786 15.9391 21 17 21C18.0609 21 19.0783 20.5786 19.8284 19.8284C20.5786 19.0783 21 18.0609 21 17V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3Z"
+                    stroke="#1F2937"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12.9994 7.35022L10.9994 5.35022C10.6243 4.97528 10.1157 4.76465 9.58539 4.76465C9.05506 4.76465 8.54644 4.97528 8.17139 5.35022L5.34339 8.17822C4.96844 8.55328 4.75781 9.06189 4.75781 9.59222C4.75781 10.1225 4.96844 10.6312 5.34339 11.0062L14.3434 20.0062"
+                    stroke="#1F2937"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M7.3 13H5C4.46957 13 3.96086 13.2107 3.58579 13.5858C3.21071 13.9609 3 14.4696 3 15V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H17"
+                    stroke="#1F2937"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M17 17V17.01"
+                    stroke="#1F2937"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <p className=" lg:text-2xl text-xl lg:leading-6 leading-5 font-medium text-gray-800 ">
+                  Search By Cuisines
+                </p>
+              </div>
+
+              <div className=" md:flex md:space-x-2 mt-8 grid grid-cols-2 gap-y-2 flex-wrap">
+                <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start rounded-full border-2 p-3 border-gray-400 ">
+                  <input
+                    className="w-4 h-4 rounded-full mr-2"
+                    type="checkbox"
+                    value="Italian"
+                    checked={selectedCuisines.includes("Italian")}
+                    onChange={() => handleCuisineSelect("Italian")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="Italian"
+                      >
+                        Italian
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
+                  <input
+                    className="w-4 h-4 mr-2 rounded-full"
+                    type="checkbox"
+                    value="French"
+                    checked={selectedCuisines.includes("French")}
+                    onChange={() => handleCuisineSelect("French")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="French"
+                      >
+                        French
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-end border-2 p-3 rounded-full border-gray-400">
+                  <input
+                    className="w-4 h-4 mr-2 rounded-full"
+                    type="checkbox"
+                    value="Chinese"
+                    checked={selectedCuisines.includes("Chinese")}
+                    onChange={() => handleCuisineSelect("Chinese")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="Chinese"
+                      >
+                        Chinese
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start border-2 p-3 rounded-full border-gray-400">
+                  <input
+                    className="w-4 h-4 mr-2 rounded-full"
+                    type="checkbox"
+                    value="Thai"
+                    checked={selectedCuisines.includes("Thai")}
+                    onChange={() => handleCuisineSelect("Thai")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="Thai"
+                      >
+                        Thai
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
+                  <input
+                    className="w-4 h-4 mr-2 rounded-full"
+                    type="checkbox"
+                    value="fastFood"
+                    checked={selectedCuisines.includes("fastFood")}
+                    onChange={() => handleCuisineSelect("fastFood")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="FastFood"
+                      >
+                        Fast Food
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
+                  <input
+                    className="w-4 h-4 mr-2 rounded-full"
+                    type="checkbox"
+                    value="Cafe"
+                    checked={selectedCuisines.includes("Cafe")}
+                    onChange={() => handleCuisineSelect("Cafe")}
+                  />
+                  <div className=" inline-block">
+                    <div className=" flex space-x-6 justify-center items-center">
+                      <label
+                        className=" mr-2 text-sm leading-3 font-normal text-gray-600"
+                        htmlFor="Cafe"
+                      >
+                        Cafe
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div>
+              <div className=" flex space-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                  />
+                </svg>
 
-            <div className=" md:flex md:space-x-2 mt-8 grid grid-cols-2 gap-y-2 flex-wrap">
-              <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start rounded-full border-2 p-3 border-gray-400 ">
-                <input
-                  className="w-4 h-4 rounded-full mr-2"
-                  type="checkbox"
-                  value="Italian"
-                  checked={selectedCuisines.includes("Italian")}
-                  onChange={() => handleCuisineSelect("Italian")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Italian"
-                    >
-                      Italian
-                    </label>
-                  </div>
-                </div>
+                <p className=" lg:text-2xl text-xl lg:leading-6 leading-5 font-medium text-gray-800 ">
+                  Search By Ratings
+                </p>
               </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="French"
-                  checked={selectedCuisines.includes("French")}
-                  onChange={() => handleCuisineSelect("French")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="French"
-                    >
-                      French
+              <div className="px-10 py-5">
+                <ul className="decoration-none">
+                  <li className="flex">
+                    <input
+                      type="radio"
+                      value="1 "
+                      className="m-1"
+                      name="list-radio"
+                      onChange={handleRadioChange}
+                    />
+                    <label>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-end border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Chinese"
-                  checked={selectedCuisines.includes("Chinese")}
-                  onChange={() => handleCuisineSelect("Chinese")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Chinese"
-                    >
-                      Chinese
+                  </li>
+                  <li className="flex">
+                    <input
+                      type="radio"
+                      value="2 "
+                      className="m-1"
+                      name="list-radio"
+                      onChange={handleRadioChange}
+                    />
+                    <label className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Thai"
-                  checked={selectedCuisines.includes("Thai")}
-                  onChange={() => handleCuisineSelect("Thai")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Thai"
-                    >
-                      Thai
+                  </li>
+                  <li className="flex">
+                    <input
+                      type="radio"
+                      value="3 "
+                      className="m-1"
+                      name="list-radio"
+                      onChange={handleRadioChange}
+                    />
+                    <label className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Fusion"
-                  checked={selectedCuisines.includes("Fusion")}
-                  onChange={() => handleCuisineSelect("Fusion")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Fusion"
-                    >
-                      Fusion
+                  </li>
+                  <li className="flex">
+                    <input
+                      type="radio"
+                      value="4 "
+                      className="m-1"
+                      name="list-radio"
+                      onChange={handleRadioChange}
+                    />
+                    <label className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="American"
-                  checked={selectedCuisines.includes("American")}
-                  onChange={() => handleCuisineSelect("American")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="American"
-                    >
-                      American
+                  </li>
+                  <li className="flex">
+                    <input
+                      type="radio"
+                      value="5 "
+                      className="m-1"
+                      name="list-radio"
+                      onChange={handleRadioChange}
+                    />
+                    <label className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Diner"
-                  checked={selectedCuisines.includes("Diner")}
-                  onChange={() => handleCuisineSelect("Diner")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Diner"
-                    >
-                      Diner
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="fastFood"
-                  checked={selectedCuisines.includes("fastFood")}
-                  onChange={() => handleCuisineSelect("fastFood")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="FastFood"
-                    >
-                      Fast Food
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="International"
-                  checked={selectedCuisines.includes("International")}
-                  onChange={() => handleCuisineSelect("International")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="International"
-                    >
-                      International
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Asian"
-                  checked={selectedCuisines.includes("Asian")}
-                  onChange={() => handleCuisineSelect("Asian")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Asian"
-                    >
-                      Asian
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="middleEastern"
-                  checked={selectedCuisines.includes("middleEastern")}
-                  onChange={() => handleCuisineSelect("middleEastern")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="MiddleEastern"
-                    >
-                      Middle Eastern
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Cafe"
-                  checked={selectedCuisines.includes("Cafe")}
-                  onChange={() => handleCuisineSelect("Cafe")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Cafe"
-                    >
-                      Cafe
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Pizza"
-                  checked={selectedCuisines.includes("Pizza")}
-                  onChange={() => handleCuisineSelect("Pizza")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Pizza"
-                    >
-                      Pizza
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Pakistani"
-                  checked={selectedCuisines.includes("Pakistani")}
-                  onChange={() => handleCuisineSelect("Pakistani")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Pakistani"
-                    >
-                      Pakistani
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Healthy"
-                  checked={selectedCuisines.includes("Healthy")}
-                  onChange={() => handleCuisineSelect("Healthy")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Healthy"
-                    >
-                      Healthy
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="centralAsian"
-                  checked={selectedCuisines.includes("centralAsian")}
-                  onChange={() => handleCuisineSelect("centralAsian")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="CentralAsian"
-                    >
-                      Central Asian
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Barbecue"
-                  checked={selectedCuisines.includes("Barbecue")}
-                  onChange={() => handleCuisineSelect("Barbecue")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Barbecue"
-                    >
-                      Barbecue
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Bar"
-                  checked={selectedCuisines.includes("Bar")}
-                  onChange={() => handleCuisineSelect("Bar")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Bar"
-                    >
-                      Bar
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Pub"
-                  checked={selectedCuisines.includes("Pub")}
-                  onChange={() => handleCuisineSelect("Pub")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Pub"
-                    >
-                      Pub
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Portuguese"
-                  checked={selectedCuisines.includes("Portuguese")}
-                  onChange={() => handleCuisineSelect("Portuguese")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Portuguese"
-                    >
-                      Portuguese
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Arabic"
-                  checked={selectedCuisines.includes("Arabic")}
-                  onChange={() => handleCuisineSelect("Arabic")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Arabic"
-                    >
-                      Arabic
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Afghan"
-                  checked={selectedCuisines.includes("Afghan")}
-                  onChange={() => handleCuisineSelect("Afghan")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Afghan"
-                    >
-                      Afghan
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className=" flex justify-center items-center border-2 p-3 rounded-full border-gray-400">
-                <input
-                  className="w-4 h-4 mr-2 rounded-full"
-                  type="checkbox"
-                  value="Labanese"
-                  checked={selectedCuisines.includes("Labanese")}
-                  onChange={() => handleCuisineSelect("Labanese")}
-                />
-                <div className=" inline-block">
-                  <div className=" flex space-x-6 justify-center items-center">
-                    <label
-                      className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                      htmlFor="Labanese"
-                    >
-                      Labanese
-                    </label>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-
           <hr className=" bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
 
           <div className="flex px-0 mt-10 w-full md:w-auto md:mt-0 md:absolute md:right-0 md:bottom-0 md:py-10 lg:px-10 md:px-6">

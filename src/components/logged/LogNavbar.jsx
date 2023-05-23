@@ -1,7 +1,7 @@
 import { useState, Fragment, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import slide1 from "../../assets/slider1.jpg";
+import userImage from "../../assets/user.png";
 import { Transition, Menu } from "@headlessui/react";
 import userService from "../../services/UserService";
 import { Base_URL } from "../../config";
@@ -56,7 +56,7 @@ export default function Navbar(props) {
 
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-12 py-3 pt-4 mb-0 bg-zinc-800">
+      <nav className="relative flex flex-wrap items-center justify-between px-12 py-3 pt-4 mb-0 bg-zinc-800 shadow-2xl">
         <div className="container mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
@@ -124,7 +124,7 @@ export default function Navbar(props) {
                       ) : (
                         <img
                           className="h-10 w-10 rounded-full mr-3"
-                          src={slide1}
+                          src={userImage}
                           alt=""
                         />
                       )}
