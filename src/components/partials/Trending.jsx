@@ -4,6 +4,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 export default function Trending() {
   const sliderSettings = {
@@ -59,23 +60,25 @@ export default function Trending() {
       <div className=" p-4">
         <h1 className="text-4xl text-center font-bold">Top Trending</h1>
         <div className="p-10 md:mx-32 shadow-xl">
-          <Slider {...sliderSettings}>
-            {slides.map((slide, index) => (
-              <div
-                key={index}
-                className="md:w-56 sm:32 p-2 shadow-xl flex justify-center"
-              >
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className="md:w-60 md:h-60 sm:w-32 sm:h-32 md:ml-5"
-                />
-                <h3 className="text-md font-semibold text-center">
-                  {slide.title}
-                </h3>
-              </div>
-            ))}
-          </Slider>
+          <Link to={"/user/brands"} target="_blank">
+            <Slider {...sliderSettings}>
+              {slides.map((slide, index) => (
+                <div
+                  key={index}
+                  className="md:w-56 sm:32 p-2 shadow-xl flex justify-center"
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className="md:w-60 md:h-60 sm:w-32 sm:h-32 md:ml-5"
+                  />
+                  <h3 className="text-md font-semibold text-center">
+                    {slide.title}
+                  </h3>
+                </div>
+              ))}
+            </Slider>
+          </Link>
         </div>
       </div>
     </>

@@ -42,6 +42,34 @@ class UserService extends GenericService {
         });
     });
 
+  createReward = (id) =>
+    new Promise((resolve, reject) => {
+      // console.log(id);
+      this.post("rewards/" + id)
+        .then((data) => {
+          // console.log(data);
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+          console.log("error");
+        });
+    });
+
+  getRewards = (id) =>
+    new Promise((resolve, reject) => {
+      // console.log(id);
+      this.get("rewards/" + id)
+        .then((data) => {
+          // console.log(data);
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+          console.log("error");
+        });
+    });
+
   logout = () => {
     localStorage.removeItem("FeedInnUserToken");
   };

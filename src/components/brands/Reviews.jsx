@@ -15,6 +15,10 @@ export default function Reviews(props) {
           <h5 className="mb-2 text-xl text-neutral-800 dark:text-neutral-50 font-semibold">
             {review.reviewHeading}
           </h5>
+          <p className="mb-4 text-xs text-neutral-800 dark:text-neutral-200">
+            <span className="text-black font-semibold">Went with: </span>
+            {review.goesWith}
+          </p>
           <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
             {review.reviewText}
           </p>

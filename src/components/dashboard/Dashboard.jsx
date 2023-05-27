@@ -5,7 +5,6 @@ import reviewsService from "../../services/ReviewService";
 import "react-circular-progressbar/dist/styles.css";
 import Rewards from "./Rewards";
 import Reviews from "./Reviews";
-import Favorites from "./Favorites";
 
 export default function Dashboard() {
   const [userId, setUserId] = useState(null);
@@ -27,7 +26,7 @@ export default function Dashboard() {
       .getReviews(userId)
       .then((reviews) => {
         setReviews(reviews);
-        console.log(reviews);
+        // console.log(reviews);
       })
       .catch((err) => {
         console.error(err);
@@ -42,7 +41,7 @@ export default function Dashboard() {
   if (reviewLength <= 4) {
     // Calculate percentage based on review length
     percentage = (reviewLength - 1) * 25 + 25;
-    console.log(percentage);
+    // console.log(percentage);
   } else {
     // Calculate percentage with repeating pattern
     const patternLength = 4;
@@ -50,7 +49,7 @@ export default function Dashboard() {
     percentage = repeatingCount * 100 + 25;
   }
 
-  console.log("Percentage:", percentage + "%");
+  // console.log("Percentage:", percentage + "%");
 
   return (
     <div className="dasboard w-full p-10">
@@ -77,15 +76,12 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="w-full p-10 bg-gray-100  rounded-3xl">
-          <Rewards />
+          <Rewards reviews={reviews} />
         </div>
       </div>
-      <div className="grid grid-cols-2 mt-10 gap-4">
+      <div className="mt-5">
         <div className="w-full p-10 bg-gray-100  rounded-3xl">
           <Reviews reviews={reviews} />
-        </div>
-        <div className="w-full p-10 bg-gray-100  rounded-3xl">
-          <Favorites />
         </div>
       </div>
     </div>

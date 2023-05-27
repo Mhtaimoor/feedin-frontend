@@ -41,7 +41,7 @@ export default function Reviews({ reviews }) {
                           scope="row"
                           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                          {review.reviewText}
+                          {review.reviewText.substring(0, 29)}
                         </th>
                         <td class="px-6 py-4">{review.goesWith}</td>
                         <td class="px-6 py-4">

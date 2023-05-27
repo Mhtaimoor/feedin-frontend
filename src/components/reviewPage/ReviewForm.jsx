@@ -135,16 +135,16 @@ export default function ReviewForm(props) {
       <div className="bg-gray-100 ">
         <LogNavbar />
         <div className="py-10">
+          <h1 className="text-3xl py-2 shineWhite text-center font-bold text-black capitalize ">
+            Write a Review and Get Rewards!
+          </h1>
           {/* <!-- component --> */}
-          <section className="max-w-4xl p-6 mx-auto  rounded-md shadow-2xl bg-zinc-800 reviewShadow">
-            <h1 className="text-3xl py-2 shineWhite text-center font-bold text-white capitalize dark:text-white">
-              Write a Review and Get Rewards!
-            </h1>
+          <section className="max-w-4xl p-6 mx-auto  rounded-md shadow-2xl bg-transparent reviewShadow">
             <form method="POST" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
+              <div className="">
                 <div>
                   <label
-                    className="text-white dark:text-gray-200"
+                    className="text-black dark:text-gray-200 text-lg font-medium"
                     for="username"
                   >
                     Brand Name
@@ -158,27 +158,14 @@ export default function ReviewForm(props) {
                       onChange={(option) => {
                         setBrandName(option);
                       }}
+                      className="bg-gray-200 rounded-xl shadow-lg"
                       required
                     />
                   </div>
                 </div>
-                <div>
-                  <label className="text-white dark:text-gray-200">
-                    When do you visit the Restaurant?
-                  </label>
-                  <input
-                    type="date"
-                    onChange={(e) => {
-                      setDateValue(e.target.value);
-                    }}
-                    required
-                    className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  />
-                </div>
-
-                <div>
+                <div className="py-3">
                   <label
-                    className="text-white dark:text-gray-200"
+                    className="text-black dark:text-gray-200  text-lg font-medium"
                     for="emailAddress"
                   >
                     Your Email Address
@@ -191,14 +178,28 @@ export default function ReviewForm(props) {
                     }}
                     required
                     placeholder="someone@gmail.com"
-                    className="block w-full px-4 py-2 mt-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    className="block w-full px-4 py-2 mt-2 shadow-lg text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
-                  <h3 class="pb-2 font-medium text-white">
+                <div className="py-3">
+                  <label className="text-black dark:text-gray-200 text-lg font-medium">
+                    When do you visit the Restaurant?
+                  </label>
+                  <input
+                    type="date"
+                    onChange={(e) => {
+                      setDateValue(e.target.value);
+                    }}
+                    required
+                    className="block w-full px-4 shadow-lg py-2 mt-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
+                  />
+                </div>
+
+                <div className="py-3">
+                  <h3 class="pb-2 text-black  text-lg font-medium">
                     How was the Restaurant?
                   </h3>
-                  <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <ul class="items-center w-full shadow-lg text-sm font-medium text-gray-900 bg-gray-100 border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-black">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                       <div class="flex items-center pl-3">
                         <input
@@ -207,7 +208,7 @@ export default function ReviewForm(props) {
                           value="Poor"
                           name="list-radio"
                           onChange={handleRadioChange}
-                          className="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                          className="w-4 h-4 text-purple-600 bg-gray-300 border-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
                           for="horizontal-list-radio-license"
@@ -225,7 +226,7 @@ export default function ReviewForm(props) {
                           value="Good"
                           name="list-radio"
                           onChange={handleRadioChange}
-                          class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                          class="w-4 h-4 text-purple-600 bg-gray-300 border-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
                           for="horizontal-list-radio-id"
@@ -243,7 +244,7 @@ export default function ReviewForm(props) {
                           value="V.Good"
                           name="list-radio"
                           onChange={handleRadioChange}
-                          class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                          class="w-4 h-4 text-purple-600 bg-gray-300 border-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
                           for="horizontal-list-radio-millitary"
@@ -261,7 +262,7 @@ export default function ReviewForm(props) {
                           value="Excellent"
                           name="list-radio"
                           onChange={handleRadioChange}
-                          class="w-4 h-4 text-blue-600 bg-gray-300 border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                          class="w-4 h-4 text-purple-600 bg-gray-300 border-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         />
                         <label
                           for="horizontal-list-radio-passport"
@@ -273,9 +274,9 @@ export default function ReviewForm(props) {
                     </li>
                   </ul>
                 </div>
-                <div>
+                <div className="py-3">
                   <label
-                    class="text-white dark:text-gray-200"
+                    class="text-black dark:text-gray-200 text-lg font-medium"
                     for="emailAddress"
                   >
                     Heading for Review
@@ -287,16 +288,18 @@ export default function ReviewForm(props) {
                     }}
                     required
                     placeholder="Good, Excellent, Bad, etc..."
-                    class="block w-full px-4 py-2 my-2 text-gray-800 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    class="block w-full px-4 py-2 my-2 shadow-lg text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                   />
+                </div>
+                <div className="py-3">
                   <label
-                    class="text-white dark:text-gray-200"
+                    class="text-black dark:text-gray-20 text-lg font-medium"
                     for="emailAddress"
                   >
                     What do you have?
                   </label>
                   <select
-                    className="w-full p-2 rounded-md my-2"
+                    className="w-full rounded-md shadow-lg my-2 bg-gray-100"
                     onChange={(e) => {
                       setSelectedCuisines(e.target.value);
                     }}
@@ -311,9 +314,10 @@ export default function ReviewForm(props) {
                       );
                     })}
                   </select>
-
+                </div>
+                <div>
                   <label
-                    class="text-white dark:text-gray-200"
+                    class="text-black dark:text-gray-200  text-lg font-medium"
                     for="emailAddress"
                   >
                     With whom did you go?
@@ -332,9 +336,9 @@ export default function ReviewForm(props) {
                     <option>Alone</option>
                   </select>
                 </div>
-                <div>
+                <div className="py-3">
                   <label
-                    className="text-white dark:text-gray-200"
+                    className="text-black dark:text-gray-200  text-lg font-medium"
                     for="passwordConfirmation"
                   >
                     Enter Your Review
@@ -347,7 +351,7 @@ export default function ReviewForm(props) {
                     onChange={(e) => {
                       setReviewText(e.target.value);
                     }}
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 shadow-lg border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                     onKeyDown={(e) => {
                       const words = e.target.value.split(/\s+/);
                       if (words.length > 49 && e.keyCode === 32) {
@@ -356,8 +360,8 @@ export default function ReviewForm(props) {
                     }}
                   ></textarea>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-white">
+                <div className="py-3">
+                  <label className="block text-black  text-lg font-medium">
                     Upload Image
                   </label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -389,7 +393,7 @@ export default function ReviewForm(props) {
                       <div className="flex text-sm text-gray-600 ">
                         <label
                           htmlFor="logo"
-                          className=" relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                          className=" relative cursor-pointer bg-gray-300 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                           <span className="px-1 ">Upload a file</span>
                           <input
@@ -400,9 +404,9 @@ export default function ReviewForm(props) {
                             onChange={handleChange}
                           />
                         </label>
-                        <p className="pl-1 text-white">or drag and drop</p>
+                        <p className="pl-1 text-black">or drag and drop</p>
                       </div>
-                      <p className="text-xs text-white">
+                      <p className="text-xs text-black">
                         PNG, JPG, GIF up to 10MB
                       </p>
                     </div>

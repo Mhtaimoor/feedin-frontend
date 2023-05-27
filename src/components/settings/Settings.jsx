@@ -15,8 +15,10 @@ export default function Settings() {
       userService
         .getProfile(user.id)
         .then((userData) => {
-          setImagePreview(`${Base_URL}users/${userData.image}`);
+          setImagePreview(`${Base_URL}/uploads/users/${userData.image}`);
+
           setUser(userData);
+          console.log(userData.image);
         })
         .catch((error) => {
           console.log(error);
