@@ -11,9 +11,10 @@ import Headline from "./partials/Headline";
 export default function Home() {
   return (
     <div className="home">
+      {/* <Headline /> */}
       <div>
         <Navbar />
-        <Headline />
+
         <Carousel />
       </div>
       <div className="">

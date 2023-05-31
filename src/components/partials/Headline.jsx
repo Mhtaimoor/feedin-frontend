@@ -60,7 +60,7 @@ export default function Headline() {
   };
 
   return (
-    <div className="word w-full bg-zinc-800 text-yellow-300 font-semibold text-center text-xl h-6">
+    <div className="word w-full bg-red-800 text-yellow-300  font-semibold text-center text-xl h-6">
       {part}
     </div>
   );

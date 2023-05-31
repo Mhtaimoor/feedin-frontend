@@ -52,16 +52,6 @@ export default function ReviewForm(props) {
   const [cuisines, setCuisines] = useState([]);
   const [restaurantName, setRestaurantName] = useState("");
 
-  console.log({
-    restaurantName,
-    ratingDate,
-    reviewHeading,
-    email,
-    goesWith,
-    reviewText,
-    reviewerEat,
-  });
-
   useEffect(() => {
     brandsService
       .getBrands()
@@ -123,12 +113,22 @@ export default function ReviewForm(props) {
         reviewHeading,
         reviewText,
         reviewerEat,
-        goesWith
+        goesWith,
+        rating
       )
       .then((res) => {
         navigate("/user/congrats/");
       })
       .catch((err) => failure(err.response.data.message));
+  };
+
+  // Star Ratings
+
+  const [rating, setRating] = useState(0);
+
+  const handleRatingChange = (value) => {
+    setRating(value);
+    console.log(value);
   };
   return (
     <>
@@ -142,6 +142,36 @@ export default function ReviewForm(props) {
           <section className="max-w-4xl p-6 mx-auto  rounded-md shadow-2xl bg-transparent reviewShadow">
             <form method="POST" onSubmit={handleSubmit}>
               <div className="">
+                <div className="flex flex-col items-center">
+                  <h2 className="text-2xl font-semibold mb-4">
+                    Rate the Brand
+                  </h2>
+                  <div className="flex justify-center items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((value) => (
+                      <div
+                        key={value}
+                        onClick={() => handleRatingChange(value)}
+                        style={{
+                          color: value <= rating ? "#FFBF00" : "gray",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 2 L15.09 8.74 L22 9.82 L17 14.15 L18.18 21 L12 17 L5.82 21 L7 14.15 L2 9.82 L8.91 8.74 L12 2 Z" />
+                        </svg>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <div>
                   <label
                     className="text-black dark:text-gray-200 text-lg font-medium"
@@ -163,6 +193,7 @@ export default function ReviewForm(props) {
                     />
                   </div>
                 </div>
+
                 <div className="py-3">
                   <label
                     className="text-black dark:text-gray-200  text-lg font-medium"

@@ -5,6 +5,8 @@ import reviewsService from "../../services/ReviewService";
 import "react-circular-progressbar/dist/styles.css";
 import Rewards from "./Rewards";
 import Reviews from "./Reviews";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Dashboard() {
   const [userId, setUserId] = useState(null);
@@ -27,6 +29,7 @@ export default function Dashboard() {
       .then((reviews) => {
         setReviews(reviews);
         // console.log(reviews);
+        notify();
       })
       .catch((err) => {
         console.error(err);
@@ -44,12 +47,15 @@ export default function Dashboard() {
     // console.log(percentage);
   } else {
     // Calculate percentage with repeating pattern
-    const patternLength = 4;
-    const repeatingCount = Math.floor((reviewLength - 1) / patternLength);
-    percentage = repeatingCount * 100 + 25;
+    const reviewsModulo = (reviewLength - 1) % 4;
+    percentage = reviewsModulo === 0 ? 25 : 100;
   }
 
   // console.log("Percentage:", percentage + "%");
+
+  const notify = () => {
+    toast("Welcome Back!", { position: toast.POSITION.BOTTOM_LEFT });
+  };
 
   return (
     <div className="dasboard w-full p-10">
@@ -84,6 +90,8 @@ export default function Dashboard() {
           <Reviews reviews={reviews} />
         </div>
       </div>
+      <ToastContainer />{" "}
+      {/* Move ToastContainer outside of Reviews component */}
     </div>
   );
 }

@@ -22,7 +22,8 @@ class ReviewService extends GenericService {
     reviewHeading,
     reviewText,
     reviewerEat,
-    goesWith
+    goesWith,
+    rating
   ) =>
     new Promise((resolve, reject) => {
       if (!userId) {
@@ -36,6 +37,7 @@ class ReviewService extends GenericService {
         reviewText,
         reviewerEat,
         goesWith,
+        rating,
       })
         .then((response) => {
           console.log(response);
