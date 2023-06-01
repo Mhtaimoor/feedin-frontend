@@ -165,13 +165,15 @@ export default function SingleBrand() {
           <div className="bg-gray-100 p-10 mt-2 rounded-lg">
             <h2 className="text-2xl font-semibold text-center">Menu </h2>
             <div className="rounded-2xl overflow-hidden mt-1">
-              <Carousel autoPlay infiniteLoop showThumbs={false}>
-                {Object.values(brand.menu).map((menuImage, index) => (
-                  <div key={index}>
-                    <img src={menuImage} alt="" />
-                  </div>
-                ))}
-              </Carousel>
+              {brand.menu && (
+                <Carousel autoPlay infiniteLoop showThumbs={false}>
+                  {Object.values(brand.menu)?.map((menuImage, index) => (
+                    <div key={index}>
+                      <img src={menuImage} alt="" />
+                    </div>
+                  ))}
+                </Carousel>
+              )}
             </div>
           </div>
         </div>

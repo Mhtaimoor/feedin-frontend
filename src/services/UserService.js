@@ -15,11 +15,11 @@ class UserService extends GenericService {
 
   login = ({ username, password }) =>
     new Promise((resolve, reject) => {
-      // console.log({ username, password });
       this.post("users/login", { username, password })
         .then((data) => {
-          console.log(data);
-          localStorage.setItem("FeedInnUserToken", data.token);
+          console.log(data); // Check the received data object
+          console.log(data.userToken); // Verify the token value
+          localStorage.setItem("FeedInnUserToken", data.userToken);
           resolve(data.token);
         })
         .catch((err) => {
@@ -27,6 +27,17 @@ class UserService extends GenericService {
           reject(err);
         });
     });
+
+  getCurrentUser = () => {
+    try {
+      const token = localStorage.getItem("FeedInnUserToken");
+      // Modify the code here to extract user information from the token
+      const user = jwtDecode(token);
+      return user;
+    } catch (ex) {
+      return null;
+    }
+  };
 
   getProfile = (id) =>
     new Promise((resolve, reject) => {
@@ -72,16 +83,6 @@ class UserService extends GenericService {
 
   logout = () => {
     localStorage.removeItem("FeedInnUserToken");
-  };
-
-  getCurrentUser = () => {
-    try {
-      const token = localStorage.getItem("FeedInnUserToken");
-      const user = jwtDecode(token);
-      return user;
-    } catch (ex) {
-      return null;
-    }
   };
 
   getUsers = () =>

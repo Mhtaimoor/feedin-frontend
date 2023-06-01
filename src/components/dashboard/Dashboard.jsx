@@ -13,12 +13,11 @@ export default function Dashboard() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    // get logged in user
-    const user = userService.getCurrentUser();
-
-    // console.log(user);
-    if (user) {
-      setUserId(user.id);
+    // Get logged in user
+    const userToken = userService.getCurrentUser();
+    console.log(userToken);
+    if (userToken) {
+      setUserId(userToken.id);
     }
   }, []);
 
@@ -28,7 +27,7 @@ export default function Dashboard() {
       .getReviews(userId)
       .then((reviews) => {
         setReviews(reviews);
-        // console.log(reviews);
+        console.log(reviews);
         notify();
       })
       .catch((err) => {
