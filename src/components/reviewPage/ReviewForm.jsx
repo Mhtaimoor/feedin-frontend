@@ -30,7 +30,6 @@ export default function ReviewForm(props) {
       : ""
   );
 
-  // console.log(brandName);
   const [ratingDate, setDateValue] = useState("");
   const [reviewHeading, setHeading] = useState("");
   const [goesWith, setSelectedValue] = useState("");
@@ -125,9 +124,12 @@ export default function ReviewForm(props) {
   // Star Ratings
 
   const [rating, setRating] = useState(0);
+  const [selectedRating, setSelectedRating] = useState(null);
+  // console.log(selectedRating);
 
   const handleRatingChange = (value) => {
     setRating(value);
+    setSelectedRating(value);
     console.log(value);
   };
   return (
@@ -135,30 +137,55 @@ export default function ReviewForm(props) {
       <div className="bg-gray-100 ">
         <LogNavbar />
         <div className="py-10">
-          <h1 className="text-3xl py-2 shineWhite text-center font-bold text-black capitalize ">
+          <h1 className="text-3xl py-2 pb-10 shineWhite text-center font-bold text-black capitalize ">
             Write a Review and Get Rewards!
           </h1>
           {/* <!-- component --> */}
           <section className="max-w-4xl p-6 mx-auto  rounded-md shadow-2xl bg-transparent reviewShadow">
             <form method="POST" onSubmit={handleSubmit}>
               <div className="">
-                <div className="flex flex-col items-center">
+                <div>
+                  <label
+                    className="text-black dark:text-gray-200 text-2xl font-semibold"
+                    for="username"
+                  >
+                    Brand Name
+                  </label>
+                  <div className="py-5 pb-10">
+                    <Select
+                      value={brandName}
+                      isMulti={false}
+                      options={transformedBrandNames}
+                      closeMenuOnSelect={true}
+                      onChange={(option) => {
+                        setBrandName(option);
+                      }}
+                      className="bg-gray-200 shadow-lg"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col">
                   <h2 className="text-2xl font-semibold mb-4">
                     Rate the Brand
                   </h2>
-                  <div className="flex justify-center items-center space-x-1">
+                  <div className="flex pb-10 space-x-1">
                     {[1, 2, 3, 4, 5].map((value) => (
                       <div
                         key={value}
                         onClick={() => handleRatingChange(value)}
+                        onMouseEnter={() => handleRatingChange(value)}
                         style={{
-                          color: value <= rating ? "#FFBF00" : "gray",
+                          color: value <= rating ? "green" : "gray",
                           cursor: "pointer",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
                         }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
+                          className="h-12 w-12"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -170,33 +197,22 @@ export default function ReviewForm(props) {
                         </svg>
                       </div>
                     ))}
-                  </div>
-                </div>
-                <div>
-                  <label
-                    className="text-black dark:text-gray-200 text-lg font-medium"
-                    for="username"
-                  >
-                    Brand Name
-                  </label>
-                  <div className="py-2.5">
-                    <Select
-                      value={brandName}
-                      isMulti={false}
-                      options={transformedBrandNames}
-                      closeMenuOnSelect={true}
-                      onChange={(option) => {
-                        setBrandName(option);
-                      }}
-                      className="bg-gray-200 rounded-xl shadow-lg"
-                      required
-                    />
+                    {selectedRating === rating && (
+                      // Show label if selectedRating matches the current value
+                      <span className="p-3 text-lg font-semibold text-green-800">
+                        {rating === 1 && "Poor"}
+                        {rating === 2 && "Good"}
+                        {rating === 3 && "Very Good"}
+                        {rating === 4 && "Excellent"}
+                        {rating === 5 && "Marvellous"}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="py-3">
                   <label
-                    className="text-black dark:text-gray-200  text-lg font-medium"
+                    className="text-black dark:text-gray-200  text-2xl font-semibold"
                     for="emailAddress"
                   >
                     Your Email Address
@@ -209,28 +225,37 @@ export default function ReviewForm(props) {
                     }}
                     required
                     placeholder="someone@gmail.com"
-                    className="block w-full px-4 py-2 mt-2 shadow-lg text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
+                    className="block w-full py-2 px-3 mt-5 shadow-lg text-gray-800 border border-gray-300 rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                   />
                 </div>
-                <div className="py-3">
-                  <label className="text-black dark:text-gray-200 text-lg font-medium">
+                <div className="py-10">
+                  <label className="text-black dark:text-gray-200 text-2xl font-semibold">
                     When do you visit the Restaurant?
                   </label>
                   <input
                     type="date"
                     onChange={(e) => {
-                      setDateValue(e.target.value);
+                      const selectedDate = e.target.value;
+                      const currentDate = new Date()
+                        .toISOString()
+                        .split("T")[0];
+                      if (selectedDate > currentDate) {
+                        setDateValue(currentDate);
+                      } else {
+                        setDateValue(selectedDate);
+                      }
                     }}
                     required
-                    className="block w-full px-4 shadow-lg py-2 mt-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
+                    max={new Date().toISOString().split("T")[0]} // Set the max attribute to the current date
+                    className="block w-96 px-4 shadow-lg py-2 mt-6 text-gray-800  border border-gray-300 rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                   />
                 </div>
 
-                <div className="py-3">
-                  <h3 class="pb-2 text-black  text-lg font-medium">
+                <div className="py-5">
+                  <h3 class="pb-5 text-black text-2xl font-semibold">
                     How was the Restaurant?
                   </h3>
-                  <ul class="items-center w-full shadow-lg text-sm font-medium text-gray-900 bg-gray-100 border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-black">
+                  <ul class="items-center w-full shadow-lg text-sm font-medium bg-white text-gray-900 border border-gray-200 rounded-xl sm:flex ">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                       <div class="flex items-center pl-3">
                         <input
@@ -305,9 +330,9 @@ export default function ReviewForm(props) {
                     </li>
                   </ul>
                 </div>
-                <div className="py-3">
+                <div className="py-5">
                   <label
-                    class="text-black dark:text-gray-200 text-lg font-medium"
+                    class="text-black dark:text-gray-200 text-2xl font-semibold"
                     for="emailAddress"
                   >
                     Heading for Review
@@ -319,18 +344,18 @@ export default function ReviewForm(props) {
                     }}
                     required
                     placeholder="Good, Excellent, Bad, etc..."
-                    class="block w-full px-4 py-2 my-2 shadow-lg text-gray-800 bg-gray-100 border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
+                    class="block w-full px-4 py-2 my-2 shadow-lg text-gray-800 mt-6 border border-gray-300 rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
                   />
                 </div>
-                <div className="py-3">
+                <div className="py-5">
                   <label
-                    class="text-black dark:text-gray-20 text-lg font-medium"
+                    class="text-black dark:text-gray-20 text-2xl font-semibold block"
                     for="emailAddress"
                   >
                     What do you have?
                   </label>
                   <select
-                    className="w-full rounded-md shadow-lg my-2 bg-gray-100"
+                    className="w-96 rounded-md shadow-lg my-5"
                     onChange={(e) => {
                       setSelectedCuisines(e.target.value);
                     }}
@@ -339,22 +364,26 @@ export default function ReviewForm(props) {
                     <option>Select One...</option>
                     {cuisines?.map((cuisine, index) => {
                       return (
-                        <option key={index} value={cuisine}>
+                        <option
+                          key={index}
+                          value={cuisine}
+                          className="text-black"
+                        >
                           {cuisine}
                         </option>
                       );
                     })}
                   </select>
                 </div>
-                <div>
+                <div className="py-5">
                   <label
-                    class="text-black dark:text-gray-200  text-lg font-medium"
+                    class="text-black dark:text-gray-200  text-2xl font-semibold block"
                     for="emailAddress"
                   >
                     With whom did you go?
                   </label>
                   <select
-                    className="w-full p-2 rounded-md my-2"
+                    className="w-96 p-2 rounded-lg my-5 text-black "
                     onChange={(e) => {
                       setSelectedValue(e.target.value);
                     }}
@@ -367,32 +396,43 @@ export default function ReviewForm(props) {
                     <option>Alone</option>
                   </select>
                 </div>
-                <div className="py-3">
+                <div className="py-5">
                   <label
-                    className="text-black dark:text-gray-200  text-lg font-medium"
-                    for="passwordConfirmation"
+                    className="text-black dark:text-gray-200 text-2xl font-semibold"
+                    htmlFor="passwordConfirmation"
                   >
                     Enter Your Review
                   </label>
-                  <textarea
-                    id="textarea"
-                    placeholder="Share your thoughts here (minimum 50 words)..."
-                    rows="8"
-                    required
-                    onChange={(e) => {
-                      setReviewText(e.target.value);
-                    }}
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 shadow-lg border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
-                    onKeyDown={(e) => {
-                      const words = e.target.value.split(/\s+/);
-                      if (words.length > 49 && e.keyCode === 32) {
-                        e.preventDefault();
-                      }
-                    }}
-                  ></textarea>
+                  <div className="relative md:h-56">
+                    <textarea
+                      id="textarea"
+                      placeholder="Share your thoughts here (minimum 50 words)..."
+                      rows="8"
+                      required
+                      onChange={(e) => {
+                        setReviewText(e.target.value);
+                      }}
+                      className="block w-full px-4 py-2 mt-6 text-gray-700 shadow-lg border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
+                      onKeyDown={(e) => {
+                        if (e.target.value.length > 49 && e.keyCode === 32) {
+                          e.preventDefault();
+                        }
+                      }}
+                    ></textarea>
+
+                    <span className="text-gray-500 text-sm absolute right-2 bottom-4">
+                      {reviewText.trim().length}/50
+                    </span>
+                    {reviewText.trim().length <= 50 &&
+                      reviewText.trim().length > 0 && (
+                        <span className="text-red-500 text-sm font-semibold">
+                          Minimum 50 characters required
+                        </span>
+                      )}
+                  </div>
                 </div>
-                <div className="py-3">
-                  <label className="block text-black  text-lg font-medium">
+                <div className="py-5">
+                  <label className="block text-black py-6 text-2xl font-semibold">
                     Upload Image
                   </label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -421,12 +461,12 @@ export default function ReviewForm(props) {
                           </svg>
                         </div>
                       )}
-                      <div className="flex text-sm text-gray-600 ">
+                      <div className="flex text-sm text-gray-600 py-5 ">
                         <label
                           htmlFor="logo"
                           className=" relative cursor-pointer bg-gray-300 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
-                          <span className="px-1 ">Upload a file</span>
+                          <span className="px-1">Upload a file</span>
                           <input
                             id="logo"
                             name="logo"
@@ -445,10 +485,10 @@ export default function ReviewForm(props) {
                 </div>
               </div>
 
-              <div class="flex justify-end mt-6">
+              <div class="flex w-full mt-6">
                 <button
                   type="submit"
-                  class="bg-white hover:bg-gray-200 py-2 px-4 text-sm font-semibold rounded-md"
+                  class="bg-zinc-900 w-full py-2.5 px-4 text-white text-md hover:font-semibold rounded-2xl"
                 >
                   Submit
                 </button>

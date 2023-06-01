@@ -8,7 +8,7 @@ export default function Reviews(props) {
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 bg-white rounded-xl mt-2">
         <div className="col-span-1 flex justify-center items-center flex-col">
-          <img src={user} alt="" className="w-28 bg-gray-300 rounded-full" />
+          <img src={user} alt="" className="w-20 bg-gray-300 rounded-full" />
           <h2 className="text-sm font-medium py-2">{review.reviewerName}</h2>
           <div className="flex justify-center">
             <svg

@@ -5,6 +5,7 @@ import restaurant from "../../assets/restaurant.png";
 import brandService from "../../services/BrandService";
 import Reviews from "./Reviews";
 import { Carousel } from "react-responsive-carousel";
+import Modal from "react-modal";
 
 export default function SingleBrand() {
   const { id } = useParams();
@@ -13,6 +14,9 @@ export default function SingleBrand() {
 
   const [brand, setBrand] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  console.log(modalIsOpen);
 
   useEffect(() => {
     async function fetchBrand() {
@@ -168,8 +172,16 @@ export default function SingleBrand() {
               {brand.menu && (
                 <Carousel autoPlay infiniteLoop showThumbs={false}>
                   {Object.values(brand.menu)?.map((menuImage, index) => (
-                    <div key={index}>
-                      <img src={menuImage} alt="" />
+                    <div
+                      key={index}
+                      onClick={() => {
+                        setSelectedImage(menuImage);
+                        setModalIsOpen(true);
+                      }}
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <img src={menuImage} alt="" />
+                      </div>
                     </div>
                   ))}
                 </Carousel>
@@ -178,6 +190,14 @@ export default function SingleBrand() {
           </div>
         </div>
       </div>
+      {modalIsOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center"
+          onClick={() => setModalIsOpen(false)}
+        >
+          <img src={selectedImage} alt="" className="modal-image h-screen" />
+        </div>
+      )}
     </>
   );
 }
