@@ -29,30 +29,27 @@ export default function Navbar(props) {
     navigate("/");
   };
 
+  const [user, setUser] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
   useEffect(() => {
     // get logged in user
     const user = userService.getCurrentUser();
     // console.log(user);
+
     if (user) {
-      setId(user.id);
-      setUsername(user.username);
+      userService
+        .getProfile(user.id)
+        .then((userData) => {
+          setImagePreview(`${Base_URL}/public/users/${userData.image}`);
+          setUser(userData);
+          // console.log(userData);
+          setUsername(userData.username);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
-
-  const [user, setUser] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
-
-  useEffect(() => {
-    userService
-      .getProfile(user.id)
-      .then((userData) => {
-        setImagePreview(`${Base_URL}users/${userData.image}`);
-        setUser(userData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [id]);
 
   return (
     <>

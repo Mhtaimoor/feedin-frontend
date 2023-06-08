@@ -40,15 +40,14 @@ export default function Dashboard() {
 
   let percentage;
 
-  if (reviewLength <= 4) {
-    // Calculate percentage based on review length
-    percentage = (reviewLength - 1) * 25 + 25;
-    // console.log(percentage);
+  if (reviewLength % 4 === 0) {
+    percentage = 100;
   } else {
-    // Calculate percentage with repeating pattern
     const reviewsModulo = (reviewLength - 1) % 4;
-    percentage = reviewsModulo === 0 ? 25 : 100;
+    percentage = (reviewsModulo + 1) * 25;
   }
+
+  console.log(percentage);
 
   // console.log("Percentage:", percentage + "%");
 
@@ -75,7 +74,8 @@ export default function Dashboard() {
                 <span className="text-green-700 font-semibold pr-1 text-md">
                   Note:
                 </span>
-                You will get free reward on 100%
+                When you add atleast 4 reviews, you get 100% progress and will
+                be rewarded.
               </p>
             </div>
           </div>

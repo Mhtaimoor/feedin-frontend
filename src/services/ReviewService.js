@@ -29,6 +29,16 @@ class ReviewService extends GenericService {
       if (!userId) {
         reject(new Error("userId is undefined"));
       }
+      console.log({
+        userId,
+        reviewerName,
+        ratingDate,
+        reviewHeading,
+        reviewText,
+        reviewerEat,
+        goesWith,
+        rating,
+      });
       this.post("/reviews/" + restaurantName, {
         userId,
         reviewerName,

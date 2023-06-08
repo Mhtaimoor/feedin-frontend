@@ -9,12 +9,28 @@ import brandsService from "../../services/BrandService";
 import { failure } from "../../utils/notification";
 import reviewsService from "../../services/ReviewService";
 
+const getCommentForRating = (rating) => {
+  switch (rating) {
+    case 1:
+      return "Poor";
+    case 2:
+      return "Good";
+    case 3:
+      return "Very Good";
+    case 4:
+      return "Excellent";
+    case 5:
+      return "Marvellous";
+    default:
+      return "";
+  }
+};
+
 export default function ReviewForm(props) {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [reviewerName, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   // console.log(email);
   const [userId, setId] = useState(null);
 
@@ -34,10 +50,6 @@ export default function ReviewForm(props) {
   const [reviewHeading, setHeading] = useState("");
   const [goesWith, setSelectedValue] = useState("");
 
-  const handleRadioChange = (event) => {
-    setSelectedValue(event.target.value);
-    console.log(event.target.value); // will print the selected value to the console
-  };
   const [reviewText, setReviewText] = useState("");
   const [reviewerEat, setSelectedCuisines] = useState("");
 
@@ -78,7 +90,7 @@ export default function ReviewForm(props) {
 
   useEffect(() => {
     setRestaurantName(brandName?.value);
-    console.log(restaurantName);
+    // console.log(restaurantName);
   }, [brandName]);
 
   useEffect(() => {
@@ -100,6 +112,7 @@ export default function ReviewForm(props) {
       setLogoImagePreview(objectUrl);
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(userId);
@@ -124,14 +137,28 @@ export default function ReviewForm(props) {
   // Star Ratings
 
   const [rating, setRating] = useState(0);
-  const [selectedRating, setSelectedRating] = useState(null);
-  // console.log(selectedRating);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [selectedComment, setSelectedComment] = useState("");
+  // console.log(selectedRating, selectedComment);
 
-  const handleRatingChange = (value) => {
-    setRating(value);
-    setSelectedRating(value);
-    console.log(value);
+  const handleRatingChange = (rating, comment) => {
+    setSelectedRating(rating);
+    setRating(rating);
+    setSelectedComment(comment);
   };
+
+  console.log({
+    restaurantName,
+    userId,
+    reviewerName,
+    selectedComment,
+    ratingDate,
+    reviewHeading,
+    reviewText,
+    reviewerEat,
+    goesWith,
+    rating,
+  });
   return (
     <>
       <div className="bg-gray-100 ">
@@ -147,7 +174,7 @@ export default function ReviewForm(props) {
                 <div>
                   <label
                     className="text-black dark:text-gray-200 text-2xl font-semibold"
-                    for="username"
+                    htmlFor="username"
                   >
                     Brand Name
                   </label>
@@ -170,13 +197,23 @@ export default function ReviewForm(props) {
                     Rate the Brand
                   </h2>
                   <div className="flex pb-10 space-x-1">
-                    {[1, 2, 3, 4, 5].map((value) => (
+                    {[1, 2, 3, 4, 5].map((rating) => (
                       <div
-                        key={value}
-                        onClick={() => handleRatingChange(value)}
-                        onMouseEnter={() => handleRatingChange(value)}
+                        key={rating}
+                        onClick={() =>
+                          handleRatingChange(
+                            rating,
+                            getCommentForRating(rating)
+                          )
+                        }
+                        onMouseEnter={() =>
+                          handleRatingChange(
+                            rating,
+                            getCommentForRating(rating)
+                          )
+                        }
                         style={{
-                          color: value <= rating ? "green" : "gray",
+                          color: rating <= selectedRating ? "green" : "gray",
                           cursor: "pointer",
                           display: "flex",
                           flexDirection: "column",
@@ -197,37 +234,15 @@ export default function ReviewForm(props) {
                         </svg>
                       </div>
                     ))}
-                    {selectedRating === rating && (
-                      // Show label if selectedRating matches the current value
+                    {selectedRating !== 0 && (
+                      // Show label if a rating is selected
                       <span className="p-3 text-lg font-semibold text-green-800">
-                        {rating === 1 && "Poor"}
-                        {rating === 2 && "Good"}
-                        {rating === 3 && "Very Good"}
-                        {rating === 4 && "Excellent"}
-                        {rating === 5 && "Marvellous"}
+                        {selectedComment}
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="py-3">
-                  <label
-                    className="text-black dark:text-gray-200  text-2xl font-semibold"
-                    for="emailAddress"
-                  >
-                    Your Email Address
-                  </label>
-                  <input
-                    id="emailAddress"
-                    type="email"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                    required
-                    placeholder="someone@gmail.com"
-                    className="block w-full py-2 px-3 mt-5 shadow-lg text-gray-800 border border-gray-300 rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
-                  />
-                </div>
                 <div className="py-10">
                   <label className="text-black dark:text-gray-200 text-2xl font-semibold">
                     When do you visit the Restaurant?
@@ -251,7 +266,7 @@ export default function ReviewForm(props) {
                   />
                 </div>
 
-                <div className="py-5">
+                {/* <div className="py-5">
                   <h3 class="pb-5 text-black text-2xl font-semibold">
                     How was the Restaurant?
                   </h3>
@@ -329,11 +344,11 @@ export default function ReviewForm(props) {
                       </div>
                     </li>
                   </ul>
-                </div>
+                </div> */}
                 <div className="py-5">
                   <label
-                    class="text-black dark:text-gray-200 text-2xl font-semibold"
-                    for="emailAddress"
+                    className="text-black dark:text-gray-200 text-2xl font-semibold"
+                    htmlFor="emailAddress"
                   >
                     Heading for Review
                   </label>
@@ -350,7 +365,7 @@ export default function ReviewForm(props) {
                 <div className="py-5">
                   <label
                     class="text-black dark:text-gray-20 text-2xl font-semibold block"
-                    for="emailAddress"
+                    htmlFor="emailAddress"
                   >
                     What do you have?
                   </label>
@@ -378,7 +393,7 @@ export default function ReviewForm(props) {
                 <div className="py-5">
                   <label
                     class="text-black dark:text-gray-200  text-2xl font-semibold block"
-                    for="emailAddress"
+                    htmlFor="emailAddress"
                   >
                     With whom did you go?
                   </label>
@@ -413,11 +428,6 @@ export default function ReviewForm(props) {
                         setReviewText(e.target.value);
                       }}
                       className="block w-full px-4 py-2 mt-6 text-gray-700 shadow-lg border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-500 focus:outline-none focus:ring"
-                      onKeyDown={(e) => {
-                        if (e.target.value.length > 49 && e.keyCode === 32) {
-                          e.preventDefault();
-                        }
-                      }}
                     ></textarea>
 
                     <span className="text-gray-500 text-sm absolute right-2 bottom-4">

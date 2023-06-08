@@ -3,6 +3,7 @@ import userImage from "../../assets/user.png";
 import userService from "../../services/UserService";
 // import { useLocation, useNavigate } from "react-router-dom";
 import { success } from "../../utils/notification";
+import { Base_URL } from "../../config";
 
 export default function Info({ user }) {
   // console.log(user.name);
@@ -68,6 +69,30 @@ export default function Info({ user }) {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+
+  // Image
+
+  const uploadCallback = (file) => {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch(`${Base_URL}users/upload`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          console.log(resData);
+          resolve({ data: { link: resData } });
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error.toString());
+        });
+    });
   };
   return (
     <>
